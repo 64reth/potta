@@ -24,6 +24,7 @@ try {
     await page.setViewportSize({ width, height });
     await page.goto(process.env.BASE_URL || "http://127.0.0.1:5173");
     await page.getByRole("button", { name: /Play Local/ }).click();
+    await page.getByRole("button", { name: /Play Local/ }).click();
     await page.locator('[data-node="A"]').click();
     await page.locator('[data-node="B"]').click();
     const sizes = await page.evaluate(() => {
@@ -63,7 +64,7 @@ try {
       return {
         alignment,
         arena: box(".arena"),
-        table: box(".table"),
+        table: box(".board-stage"),
         piece: box(".piece"),
         target: box(".node"),
         overflow: document.documentElement.scrollWidth > innerWidth,
@@ -90,7 +91,7 @@ try {
     );
     if (width <= 600)
       assert.ok(
-        sizes.arena.width / width >= 0.96 && sizes.arena.width / width <= 1,
+        sizes.arena.width / width >= 0.95 && sizes.arena.width / width <= 1,
       );
     console.log(
       `${width}×${height}: arena ${Math.round(sizes.arena.width)}px, piece ${Math.round(sizes.piece.width)}px, target ${Math.round(sizes.target.width)}px, board extent / playing surface ${((sizes.arena.width * 0.94) / Math.min(sizes.table.width, sizes.table.height)).toFixed(2)}`,

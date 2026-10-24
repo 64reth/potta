@@ -1,5 +1,6 @@
 import {
   legalActions,
+  geometryFor,
   transition,
   movesFor,
   other,
@@ -7,8 +8,6 @@ import {
   type State,
   type PlayerId,
 } from "../engine/game";
-import { NODES } from "../engine/geometry";
-import { WINNING_LINES } from "../engine/lines";
 import { seededRandom } from "../engine/session";
 export type Difficulty = "easy" | "normal" | "hard";
 export interface SearchResult {
@@ -23,13 +22,14 @@ function evaluate(s: State, me: PlayerId): number {
   if (s.result.status === "won") return s.result.winner === me ? LIMIT : -LIMIT;
   const enemy = other(me);
   let value = 0;
-  for (const line of WINNING_LINES) {
+  for (const line of geometryFor(s).lines) {
     const a = line.filter((n) => s.board[n] === me).length,
       b = line.filter((n) => s.board[n] === enemy).length;
-    if (!b) value += [0, 3, 32, 80][a];
-    if (!a) value -= [0, 3, 36, 80][b];
+    if (!b) value += [0, 3, 32, 80, 180, 400][a];
+    if (!a) value -= [0, 3, 36, 80, 180, 400][b];
   }
-  value += s.board.E === me ? 12 : s.board.E === enemy ? -12 : 0;
+  for (const n of geometryFor(s).centres)
+    value += s.board[n] === me ? 12 : s.board[n] === enemy ? -12 : 0;
   if (s.phase === "movement")
     value += 2 * (movesFor(s, me).length - movesFor(s, enemy).length);
   return value;
@@ -38,7 +38,9 @@ function evaluate(s: State, me: PlayerId): number {
 // or remaining movement turns must never share a transposition evaluation.
 export function searchKey(s: State): string {
   return (
-    NODES.map((n) => s.board[n]?.[0] ?? "-").join("") +
+    geometryFor(s)
+      .nodes.map((n) => s.board[n]?.[0] ?? "-")
+      .join("") +
     s.turn +
     s.phase +
     ":" +
@@ -77,7 +79,7 @@ export function chooseAction(
     // Seeded imperfection: favour useful positions but sometimes miss a block.
     const random = seededRandom(
       seed +
-        NODES.reduce(
+        geometryFor(s).nodes.reduce(
           (v, n, i) =>
             v + (s.board[n] === me ? 1 : s.board[n] ? 2 : 0) * 3 ** i,
           0,
@@ -92,8 +94,10 @@ export function chooseAction(
       score: evaluate(choice.state, me),
     };
   }
-  const budget = difficulty === "hard" ? 24000 : 1800,
-    maxDepth = difficulty === "hard" ? 12 : 3;
+  const larger = geometryFor(s).size > 3;
+  const budget =
+      difficulty === "hard" ? (larger ? 2400 : 24000) : larger ? 600 : 1800,
+    maxDepth = difficulty === "hard" ? (larger ? 4 : 12) : larger ? 2 : 3;
   let nodes = 0,
     best = root[0].action,
     bestScore = evaluate(root[0].state, me),

@@ -4,6 +4,7 @@ export interface Seat {
   token: string;
   intent: "create" | "join" | "sync";
   pending?: Command;
+  boardSize?: 3 | 4 | 5;
 }
 const KEY = "potta-seats-v1",
   ACTIVE = "potta-active-room-v1";
@@ -25,7 +26,11 @@ export function remember(seat: Seat) {
   localStorage.setItem(KEY, JSON.stringify(all));
   localStorage.setItem(ACTIVE, seat.code);
 }
-export function newSeat(code: string, intent: "create" | "join"): Seat {
+export function newSeat(
+  code: string,
+  intent: "create" | "join",
+  boardSize: 3 | 4 | 5 = 3,
+): Seat {
   if (!ROOM_PATTERN.test(code)) throw Error("Enter a six-character room code.");
   const existing = savedSeat(code);
   if (existing) {
@@ -35,7 +40,7 @@ export function newSeat(code: string, intent: "create" | "join"): Seat {
   const token = Array.from(crypto.getRandomValues(new Uint8Array(32)), (n) =>
     n.toString(16).padStart(2, "0"),
   ).join("");
-  const seat = { code, token, intent };
+  const seat = { code, token, intent, boardSize };
   remember(seat);
   return seat;
 }
@@ -79,7 +84,11 @@ export class OnlineClient {
     if (this.stopped || this.active) return;
     this.active = true;
     const pending = this.seat.pending,
-      command = pending ?? { type: this.seat.intent };
+      command =
+        pending ??
+        (this.seat.intent === "create"
+          ? { type: "create", boardSize: this.seat.boardSize ?? 3 }
+          : { type: this.seat.intent });
     try {
       const response = await fetch(`/api/rooms/${this.seat.code}`, {
         method: "POST",
@@ -108,6 +117,7 @@ export class OnlineClient {
         }
       } else {
         this.view = data as RoomView;
+        this.seat.boardSize = this.view.state.rules.boardSize ?? 3;
         this.status = "connected";
         this.message = "";
         this.failures = 0;

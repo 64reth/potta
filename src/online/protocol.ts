@@ -1,3 +1,4 @@
+import type { BoardSize } from "../engine/boards";
 import type { State, Action, PlayerId, Rules } from "../engine/game";
 import type { Recording } from "../engine/session";
 export const ROOM_PATTERN = /^[A-HJ-NP-Z2-9]{6}$/;
@@ -12,7 +13,8 @@ export interface RoomView {
   opponentPresent: boolean;
 }
 export type Command =
-  | { type: "create" | "join" | "sync" }
+  | { type: "create"; boardSize?: BoardSize }
+  | { type: "join" | "sync" }
   | {
       type: "action";
       id: string;

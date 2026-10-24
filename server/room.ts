@@ -1,5 +1,6 @@
 import {
   DEFAULT_RULES,
+  potta,
   initialState,
   legalActions,
   transition,
@@ -14,9 +15,16 @@ export class RoomError extends Error {
     super(message);
   }
 }
-export function freshRoom(hash: string, now: number): RoomData {
+export function freshRoom(
+  hash: string,
+  now: number,
+  boardSize: 3 | 4 | 5 = 3,
+): RoomData {
+  if (![3, 4, 5].includes(boardSize))
+    throw new RoomError("Choose a valid board size.", 400);
+  const rules = { ...DEFAULT_RULES, boardSize };
   return {
-    state: initialState(DEFAULT_RULES),
+    state: initialState(rules),
     members: { blue: { hash, seen: now } },
     revision: 0,
     match: 1,
@@ -25,9 +33,9 @@ export function freshRoom(hash: string, now: number): RoomData {
     recording: {
       format: 1,
       game: "potta",
-      version: 1,
+      version: potta.version,
       seed: 1,
-      config: structuredClone(DEFAULT_RULES),
+      config: structuredClone(rules),
       players: [
         { id: "blue", name: "Azure" },
         { id: "gold", name: "Ochre" },
@@ -45,7 +53,7 @@ export function commandRoom(
   if (!existing) {
     if (command.type !== "create")
       throw new RoomError("That game could not be found. Check the code.", 404);
-    return { room: freshRoom(hash, now), player: "blue" };
+    return { room: freshRoom(hash, now, command.boardSize), player: "blue" };
   }
   const room = structuredClone(existing);
   let player = (["blue", "gold"] as const).find(

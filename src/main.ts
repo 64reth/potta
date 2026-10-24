@@ -1,11 +1,14 @@
-import { GameSession, replay, type Recording } from "./engine/session";
+import { GameSession, type Recording } from "./engine/session";
 import {
   potta,
   DEFAULT_RULES,
+  geometryFor,
   type Action,
   type State,
   type Rules,
 } from "./engine/game";
+import { boardGeometry, type BoardSize } from "./engine/boards";
+import { restoreGame } from "./engine/restore";
 import { mountBoard, type BoardContext } from "./ui/board";
 import {
   OnlineClient,
@@ -19,9 +22,18 @@ import "./ui/style.css";
 type Mode = "local" | "solo" | "online";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 const players = [
-  { id: "blue", name: "Azure" },
-  { id: "gold", name: "Ochre" },
+  { id: "blue", name: "Red" },
+  { id: "gold", name: "Green" },
 ];
+let selectedSize: BoardSize = 3;
+let paused = false,
+  renderedSize: BoardSize = 3;
+try {
+  document.documentElement.classList.toggle(
+    "reduced-motion",
+    localStorage.getItem("potta-motion") === "true",
+  );
+} catch {}
 let session = create(),
   mode: Mode = "local",
   difficulty: Difficulty = "normal",
@@ -34,7 +46,12 @@ let worker: Worker | undefined,
   notice = "",
   screen = "menu";
 function create(sessionSeed = 1) {
-  return new GameSession(potta, DEFAULT_RULES, players, sessionSeed);
+  return new GameSession(
+    potta,
+    { ...DEFAULT_RULES, boardSize: selectedSize },
+    players,
+    sessionSeed,
+  );
 }
 function readSave():
   | {
@@ -64,6 +81,7 @@ function save() {
 }
 function cancel() {
   generation++;
+  paused = false;
   worker?.terminate();
   worker = undefined;
   thinking = false;
@@ -80,20 +98,41 @@ function menu() {
   try {
     seat = savedSeat();
   } catch {}
-  app.innerHTML = `<main class="selection"><header><span class="wordmark">POTTA</span><span class="edition">HERITAGE GAMES <span>004</span></span></header>
- <section class="mode-intro"><div class="eyebrow">BARBADOS · A GAME OF CONNECTION</div><h1>Three pieces.<br><em>Endless possibility.</em></h1><p>A shared tradition. Your kind of contest.</p></section>
- <div class="mode-grid"><button class="mode-card" id="solo"><span class="mode-icon">◉</span><span class="mode-number">01</span><h2>SOLO</h2><p>A quiet challenge.<br>You and the computer.</p><strong>Play Solo <span>↗</span></strong></button>
- <button class="mode-card" id="local"><span class="mode-icon">◉ ◉</span><span class="mode-number">02</span><h2>LOCAL</h2><p>Share the board.<br>Two players, one device.</p><strong>Play Local <span>↗</span></strong></button>
- <button class="mode-card" id="online"><span class="mode-icon">◎</span><span class="mode-number">03</span><h2>ONLINE</h2><p>A little distance.<br>The same connection.</p><strong>Play Online <span>↗</span></strong></button></div>
- <div class="resume-actions">${saved ? '<button id="resume-local" class="quiet">Resume Game · ' + (saved.mode === "solo" ? "Solo" : "Local") + " ↗</button>" : ""}${seat ? '<button id="resume-online" class="quiet">Resume Game · Online ↗</button>' : ""}</div>
- <p class="menu-note">Nine places. Three in a line. Make your next move.</p></main>`;
-  on("local", () => start("local"));
-  on("solo", soloMenu);
+  app.innerHTML = `<main class="selection welcome"><header class="menu-top"><span class="kicker">HERITAGE GAMES / 004</span><span class="edition">BARBADOS · MADE TO CONNECT</span></header><section class="welcome-layout"><div class="welcome-copy"><span class="kicker">A SMALL BOARD. A BIG CONTEST.</span><h1 class="hero-logo">POTTA<span>●</span></h1><p class="lead">Place your stones.<br>Find your line.</p><p class="welcome-note">A shared tradition, with new ways to play. <br>Choose your opponent. Make your move.</p><div class="resume-actions">${saved ? '<button id="resume-local" class="primary">Resume Game · ' + (saved.mode === "solo" ? "Solo" : "Local") + " ↗</button>" : ""}${seat ? '<button id="resume-online">Resume Game · Online ↗</button>' : ""}</div></div><div class="mode-grid" aria-label="Choose a game mode">${[
+    {
+      id: "solo",
+      n: "01",
+      title: "Solo",
+      copy: "A quiet challenge. You and the computer.",
+    },
+    {
+      id: "local",
+      n: "02",
+      title: "Local",
+      copy: "Share the board. Two players, one device.",
+    },
+    {
+      id: "online",
+      n: "03",
+      title: "Online",
+      copy: "A little distance. The same connection.",
+    },
+  ]
+    .map(
+      (m) =>
+        `<button id="${m.id}" class="mode-card" aria-label="Play ${m.title}"><span class="mode-number">${m.n}</span><span class="mode-copy"><strong>${m.title}</strong><span>${m.copy}</span></span><span class="card-arrow">↗</span></button>`,
+    )
+    .join(
+      "",
+    )}</div></section><footer><span>RED. GREEN. BLACK. YOUR NEXT MOVE.</span><span>Traditional 3 × 3 · Four · Five</span></footer></main>`;
+  on("local", () => gameSetup("local"));
+  on("solo", () => gameSetup("solo"));
   on("online", onlineMenu);
   on("resume-local", () => {
     try {
       if (!saved) return;
-      session = replay(potta, saved.recording);
+      session = restoreGame(saved.recording);
+      selectedSize = session.state.rules.boardSize ?? 3;
       mode = saved.mode;
       difficulty = saved.difficulty;
       seed = saved.seed;
@@ -101,7 +140,7 @@ function menu() {
       think();
     } catch {
       notice = "That saved game could not be restored.";
-      soloMenu();
+      gameSetup("solo");
     }
   });
   on("resume-online", () => {
@@ -116,20 +155,44 @@ function setup(title: string, content: string) {
   app.innerHTML = `<main class="selection setup"><header><button id="back" class="quiet">← Main menu</button><span class="edition">POTTA / 004</span></header><section class="setup-content"><div class="eyebrow">MAKE YOUR NEXT MOVE</div><h1>${title}</h1>${content}<p id="setup-error" role="status"></p></section></main>`;
   on("back", menu);
 }
-function soloMenu() {
-  setup(
-    "Find your challenge.",
-    `<p>You play Azure. The computer plays Ochre.</p><div class="difficulties">${(["easy", "normal", "hard"] as const).map((d) => `<button data-level="${d}" class="difficulty ${d === difficulty ? "chosen" : ""}" aria-pressed="${d === difficulty}"><strong>${d[0].toUpperCase() + d.slice(1)}</strong><span>${d === "easy" ? "Room to discover." : d === "normal" ? "A thoughtful opponent." : "A deeper contest."}</span></button>`).join("")}</div><button id="start-solo" class="primary">Play Solo ↗</button>`,
+function boardOptions() {
+  const g = boardGeometry(selectedSize);
+  return `<fieldset class="board-options"><legend>Choose your board</legend><div class="size-grid">${(
+    [3, 4, 5] as const
+  )
+    .map((size) => {
+      const board = boardGeometry(size);
+      return `<button class="board-option ${size === selectedSize ? "chosen" : ""}" data-size="${size}" aria-pressed="${size === selectedSize}" aria-label="${board.name} ${size} by ${size}"><span class="grid-symbol" style="--grid:${size}">${Array.from({ length: size * size }, () => "<i></i>").join("")}</span><strong>${board.name}</strong><small>${size} × ${size}</small></button>`;
+    })
+    .join(
+      "",
+    )}</div><p class="board-summary"><strong>${g.pieces} stones each · ${g.target} consecutive to win</strong><span>${selectedSize === 3 ? "The Traditional nine-point board." : "Experimental modern variant. Main diagonals only."}</span></p></fieldset>`;
+}
+function bindBoards(back: () => void) {
+  document.querySelectorAll<HTMLButtonElement>("[data-size]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        selectedSize = Number(b.dataset.size) as BoardSize;
+        back();
+      }),
   );
+}
+function gameSetup(next: "solo" | "local") {
+  setup(
+    next === "solo" ? "Your next challenge." : "One board. Two players.",
+    `<p>${next === "solo" ? "You play Red. The computer plays Green." : "Red begins. Pass the device when the turn changes."}</p>${boardOptions()}${next === "solo" ? `<fieldset class="difficulties"><legend>Choose your challenge</legend>${(["easy", "normal", "hard"] as const).map((d) => `<button data-level="${d}" class="difficulty ${difficulty === d ? "chosen" : ""}" aria-pressed="${difficulty === d}"><strong>${d[0].toUpperCase() + d.slice(1)}</strong><span>${d === "easy" ? "Room to discover" : d === "normal" ? "A thoughtful opponent" : "A deeper contest"}</span></button>`).join("")}</fieldset>` : '<div class="local-seats"><span><i class="seat red"></i>Player one · Red</span><span><i class="seat green"></i>Player two · Green</span></div>'}<button id="start-${next}" class="primary full">Play ${next === "solo" ? "Solo" : "Local"} <span>→</span></button>`,
+  );
+  bindBoards(() => gameSetup(next));
   document.querySelectorAll<HTMLButtonElement>("[data-level]").forEach(
     (b) =>
       (b.onclick = () => {
         difficulty = b.dataset.level as Difficulty;
-        soloMenu();
+        gameSetup(next);
       }),
   );
-  on("start-solo", () => start("solo"));
+  on("start-" + next, () => start(next));
 }
+let joinCode = "";
 function onlineMenu() {
   cancel();
   document.body.classList.remove("in-game");
@@ -137,14 +200,18 @@ function onlineMenu() {
     new URLSearchParams(location.hash.slice(1)).get("room")?.toUpperCase() ||
     "";
   setup(
-    "Across the table.<br>Wherever you are.",
-    `<p>Invite one person to a private game. Your seat stays yours if your connection drops.</p><button id="create-online" class="primary">Create Game ↗</button><div class="join-divider">OR JOIN A FRIEND</div><form id="join-form"><label for="room-code">Room code</label><div class="join-row"><input id="room-code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234" aria-label="Room code"><button class="restart" type="submit">Join Game</button></div></form><p class="rule-note">Keep the same browser to resume your seat. Invitation links share the room, never your player identity.</p>`,
+    "Your private table.",
+    `<p>Create a game for a friend, or join with their room code.</p>${boardOptions()}<button id="create-online" class="primary full">Create Game <span>→</span></button><div class="join-divider">OR JOIN A FRIEND</div><form id="join-form"><label for="room-code">Room code</label><div class="join-row"><input id="room-code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234" aria-label="Room code"><button type="submit">Join Game</button></div></form><p class="rule-note">Joining uses your host’s board. Your seat is saved in this browser, even if your connection drops.</p>`,
   );
   const input = document.querySelector<HTMLInputElement>("#room-code")!;
-  input.value = /^[A-Z2-9]{6}$/.test(code) ? code : "";
+  input.value = /^[A-Z2-9]{6}$/.test(code) ? code : joinCode;
+  input.oninput = () => {
+    joinCode = input.value;
+  };
+  bindBoards(onlineMenu);
   const open = (code: string, intent: "create" | "join") => {
     try {
-      connect(newSeat(code, intent));
+      connect(newSeat(code, intent, selectedSize));
     } catch (error) {
       document.getElementById("setup-error")!.textContent = (
         error as Error
@@ -173,16 +240,34 @@ function state(): State {
 function context(): BoardContext {
   const s = state();
   let message = notice,
-    canPlay = true,
+    headline: string | undefined,
+    canPlay = !paused,
     busy = thinking;
   if (mode === "solo") {
-    canPlay = !thinking && s.turn === "blue";
-    if (thinking) message = "Ochre is considering the next move…";
+    canPlay = !paused && !thinking && s.turn === "blue";
+    if (thinking) {
+      message = "Green is considering the next move…";
+      headline = "Green is thinking.";
+    }
   }
   if (mode === "online" && online) {
     const v = online.view;
-    busy = !!online.seat.pending || !!v?.rematch.includes(v.player);
+    busy =
+      online.status !== "connected" ||
+      !!online.seat.pending ||
+      !!v?.rematch.includes(v.player);
+    headline =
+      online.status === "error"
+        ? "Can't open this game."
+        : online.status === "reconnecting"
+          ? "Reconnecting…"
+          : online.status === "connecting"
+            ? "Connecting…"
+            : !v?.ready
+              ? "Waiting for your friend."
+              : undefined;
     canPlay =
+      !paused &&
       online.status === "connected" &&
       !!v?.ready &&
       v.player === s.turn &&
@@ -200,10 +285,11 @@ function context(): BoardContext {
                 ? s.result.reason + " · Ready for another round?"
                 : !v.opponentPresent
                   ? "Your opponent is reconnecting. Their seat is saved."
-                  : `You are ${v.player === "blue" ? "Azure" : "Ochre"}. ${v.player === s.turn ? "Your turn." : "Your opponent’s turn."}`;
+                  : `You are ${v.player === "blue" ? "Red" : "Green"}. ${v.player === s.turn ? "Your turn." : "Your opponent’s turn."}`;
   }
   return {
     canPlay,
+    headline,
     label:
       mode === "solo"
         ? `SOLO · ${difficulty.toUpperCase()}`
@@ -217,29 +303,53 @@ function context(): BoardContext {
 }
 function refresh() {
   if (screen !== "game" || !board) return;
+  if (geometryFor(state()).size !== renderedSize) {
+    selectedSize = geometryFor(state()).size;
+    showBoard();
+    return;
+  }
   board.update(state(), context());
   if (mode === "online") updateRoomStrip();
 }
 function showBoard() {
   screen = "game";
   document.body.classList.add("in-game");
+  renderedSize = geometryFor(state()).size;
   board = mountBoard(app, state(), context(), {
     action: act,
     reset,
     home: menu,
+    pause: (value: boolean) => {
+      paused = value;
+      if (value && mode !== "online") {
+        generation++;
+        worker?.terminate();
+        thinking = false;
+      }
+      refresh();
+      if (!value) think();
+    },
   });
   if (mode === "online") {
     const strip = document.createElement("div");
     strip.className = "room-strip";
     strip.innerHTML =
       '<span id="room-state" role="status"></span><button id="share" class="quiet">Share invitation ↗</button><input id="invitation" readonly aria-label="Invitation link" hidden>';
-    document.querySelector(".game-rail .game-bottom")!.before(strip);
+    document.querySelector("#room-slot")!.append(strip);
     on("share", () => void share());
     updateRoomStrip();
   }
 }
 function updateRoomStrip() {
   const el = document.getElementById("room-state");
+  if (el && online) {
+    const container =
+      online.view?.ready && online.status === "connected"
+        ? document.getElementById("details-dialog")
+        : document.getElementById("room-slot");
+    if (container && el.parentElement!.parentElement !== container)
+      container.append(el.parentElement!);
+  }
   if (el)
     el.textContent = `Room ${online?.seat.code} · ${online?.status === "connected" ? (online.view?.ready ? "Two at the table" : "Waiting for a friend") : online?.status === "error" ? "Unable to connect" : "Connecting…"}`;
 }
@@ -260,6 +370,7 @@ function connect(seat: Seat) {
   cancel();
   history.replaceState(null, "", "#room=" + seat.code);
   mode = "online";
+  selectedSize = seat.boardSize ?? 3;
   notice = "";
   session = create();
   online = new OnlineClient(seat, () => refresh());
@@ -313,6 +424,7 @@ function think() {
     mode !== "solo" ||
     screen !== "game" ||
     thinking ||
+    paused ||
     session.state.turn !== "gold" ||
     session.state.result.status !== "playing"
   )

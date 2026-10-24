@@ -1,4 +1,19 @@
-# Board and rule decisions · engine version 1
+# Board and rule decisions · engine version 2
+
+
+## Build 003 configurations
+
+| Board | Stones per player | Winning target |
+| --- | --- | --- |
+| Traditional 3×3 | 3 | 3 |
+| Four 4×4 | 4 | 3 consecutive |
+| Five 5×5 | 5 | 4 consecutive |
+
+Four and Five are experimental modern variants, not assertions of traditional rules. `src/engine/boards.ts` centralises each graph and consecutive winning segment. All boards connect adjacent horizontal/vertical nodes and consecutive nodes on the two full-board diagonals only. A crossing without an intersection is not playable (notably the centre of Four). A shorter winning segment may occur anywhere along a configured row, column or full-board diagonal; additional diagonal directions are absent.
+
+All boards share the provisional defaults below. Placement lasts twice the configured stone count. Traditional retains its original graph, winning lines and transition behaviour. Engine version 2 records board configuration; `restoreGame` also restores version 1 Traditional recordings through the compatibility definition. Existing rooms without a board size default to Traditional. Rematches retain room rules.
+
+The following graph and three-stone description describe Traditional specifically.
 
 The board follows the geometry specified for this build:
 
@@ -33,4 +48,4 @@ These defaults are practical Build 001 choices, **not authenticated traditional 
 
 If neither player can move, the game draws regardless of blocked-turn policy. If a move both wins and reaches a draw threshold, the win takes precedence. Blocking takes precedence over repetition and the movement limit. Configurations disabling both draw thresholds allow an indefinite cycle; that is deliberate opt-in behavior.
 
-Azure starts each new game and rematch as an explicit interface convention. Colour names, piece styling, movement timing and these draw policies are presentation/implementation decisions rather than historical assertions.
+Red (internal player ID `blue`) starts each new game and rematch as an explicit interface convention. Colour names, piece styling, movement timing and these draw policies are presentation/implementation decisions rather than historical assertions.

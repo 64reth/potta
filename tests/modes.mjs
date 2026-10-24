@@ -57,7 +57,7 @@ try {
     await click(host, "A");
     await wait(async () => (await count(host, "gold")) === 1);
     assert.equal(await count(host, "blue"), 1);
-    assert.match(await host.locator("#status-title").innerText(), /Azure/);
+    assert.match(await host.locator("#status-title").innerText(), /Red/i);
     await host.getByRole("button", { name: "Main menu" }).click();
   }
   // Finish a solo match through actual legal controls, using the same public legal labels as a player.
@@ -69,7 +69,7 @@ try {
       break;
     await wait(
       async () =>
-        (/Azure/.test(await host.locator("#status-title").innerText()) &&
+        (/Red/i.test(await host.locator("#status-title").innerText()) &&
           !/considering/.test(
             await host.locator("#instruction").innerText(),
           )) ||
@@ -83,7 +83,7 @@ try {
       break;
     if (!(await host.locator(".node.legal").count())) {
       for (const node of await host.locator(".node").all()) {
-        if ((await node.getAttribute("aria-label")).includes("Azure piece")) {
+        if ((await node.getAttribute("aria-label")).includes("Red piece")) {
           await node.click({ force: true });
           if (await host.locator(".node.legal").count()) break;
         }
@@ -116,7 +116,7 @@ try {
     /Two at the table/.test(await host.locator("#room-state").innerText()),
   );
   await wait(async () =>
-    /You are Ochre/.test(await guest.locator("#instruction").innerText()),
+    /You are Green/.test(await guest.locator("#instruction").innerText()),
   );
   const visitor = await browser.newContext();
   const third = await visitor.newPage();
@@ -153,7 +153,7 @@ try {
   // The guest retains identity through a refresh.
   await guest.reload();
   await wait(async () =>
-    /You are Ochre/.test(await guest.locator("#instruction").innerText()),
+    /You are Green/.test(await guest.locator("#instruction").innerText()),
   );
   for (const [p, n] of [
     [guest, "D"],
@@ -188,7 +188,7 @@ try {
   );
   await b.setOffline(false);
   await wait(async () =>
-    /You are Ochre/.test(await guest.locator("#instruction").innerText()),
+    /You are Green/.test(await guest.locator("#instruction").innerText()),
   );
   await host.locator('[data-node="F"]').click();
   await host.screenshot({
@@ -201,7 +201,7 @@ try {
   });
   await click(host, "C");
   await wait(async () =>
-    /Azure takes the line/.test(
+    /Red takes the line/i.test(
       await guest.locator("#status-title").innerText(),
     ),
   );
@@ -234,13 +234,13 @@ try {
   );
   await guest.reload();
   await wait(async () =>
-    /You are Ochre/.test(await guest.locator("#instruction").innerText()),
+    /You are Green/.test(await guest.locator("#instruction").innerText()),
   );
-  assert.match(await guest.locator("#status-title").innerText(), /Azure/);
+  assert.match(await guest.locator("#status-title").innerText(), /Red/i);
   await host.getByRole("button", { name: "Main menu" }).click();
   await host.getByRole("button", { name: /Resume Game · Online/ }).click();
   await wait(async () =>
-    /You are Azure/.test(await host.locator("#instruction").innerText()),
+    /You are Red/.test(await host.locator("#instruction").innerText()),
   );
   assert.deepEqual(errors, []);
   console.log(
