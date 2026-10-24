@@ -83,7 +83,10 @@ export function verifySymmetries() {
         throw Error("Graph symmetry invalid");
   }
 }
-export function buildGraph(placementWins: boolean): Graph {
+export function buildGraph(
+  placementWins: boolean,
+  allow: (state: State, action: Action) => boolean = () => true,
+): Graph {
   const rules: Rules = {
     placementWins,
     blocked: "draw",
@@ -119,7 +122,9 @@ export function buildGraph(placementWins: boolean): Graph {
   }
   add(initialState(rules), null, null);
   for (let id = 0; id < graph.states.length; id++)
-    for (const action of legalActions(graph.states[id])) {
+    for (const action of legalActions(graph.states[id]).filter((action) =>
+      allow(graph.states[id], action),
+    )) {
       const to = add(transition(graph.states[id], action).state, id, action);
       graph.edges[id].push({
         to,

@@ -1,0 +1,1948 @@
+{
+  "format": 1,
+  "baselineRules": {
+    "placementWins": false,
+    "blocked": "draw",
+    "repetition": 3,
+    "moveLimit": 100
+  },
+  "change": "Only placement at E is forbidden; movement becomes fully ordinary after the sixth placement.",
+  "structuralModel": "repetition and move limit disabled; infinite play classified as draw",
+  "currentRulesRootProof": "A drawn initial position remains drawn when automatic draws are added. The restricted-centre winning rank strictly decreases, preventing repeats from a fresh game, and forces victory within three movement turns.",
+  "verification": [
+    {
+      "symmetryEngineTransitions": 189704,
+      "independentFixedPoint": true
+    },
+    {
+      "symmetryEngineTransitions": 129600,
+      "independentFixedPoint": true
+    }
+  ],
+  "independentRestrictedClock3": {
+    "states": 5849,
+    "symmetry": 794,
+    "root": 1
+  },
+  "comparison": {
+    "uniformPairedDifferences": {
+      "plies": {
+        "restrictedMinusCurrent": -0.0497,
+        "approximate95PercentMonteCarloInterval": [
+          -0.3254251340976855,
+          0.22602513409768546
+        ]
+      },
+      "repeatedPosition": {
+        "restrictedMinusCurrent": -0.0005,
+        "approximate95PercentMonteCarloInterval": [
+          -0.011244837323706817,
+          0.010244837323706816
+        ]
+      },
+      "repetitionDraw": {
+        "restrictedMinusCurrent": 0.0036,
+        "approximate95PercentMonteCarloInterval": [
+          -0.00005583448736104935,
+          0.007255834487361049
+        ]
+      },
+      "blueWin": {
+        "restrictedMinusCurrent": 0.0187,
+        "approximate95PercentMonteCarloInterval": [
+          0.0061622608664938985,
+          0.031237739133506102
+        ]
+      }
+    }
+  },
+  "sharedMovementPositionsWithIdenticalValues": 3196,
+  "sources": {
+    "src/engine/game.ts": "96715959afa6ad2fb5a4849c757150a5f17a3eef9183b775d4e2791885a32d6c",
+    "src/engine/geometry.ts": "beda72a173b32465fbfd5b372d721c8a434781d345e2cd862ea344fc7b026d1e",
+    "src/engine/lines.ts": "1d0700440c2de5580a96a416fd39551e72efdae18fc0428a8c177cf8054ba8d3",
+    "src/engine/session.ts": "41180ba1b63eac80e464663886d4eec75d7c0477bad55466127cafcdbe1b73cd",
+    "tools/analysis/metrics.ts": "dd8348e2693fda3c1dc4e4c070702d8b6a5f9e4e0042dee7fac6af6ec9f3db12",
+    "tools/analysis/graph.ts": "53a44e133d80e65ab67df41391292a17470c618a2a199e7e137deb71828cca1f",
+    "tools/analysis/restricted-centre.ts": "9d30ec33ecf94706cba70bcbbbedf675351dc40663720b2fdf8965627f4bc9b1"
+  },
+  "results": [
+    {
+      "restricted": false,
+      "graph": {
+        "states": 5850,
+        "symmetry": 811,
+        "edges": 23713,
+        "root": 0,
+        "rootRemoteness": -1,
+        "winningMovementBound": null,
+        "activeStates": 5538,
+        "placement": {
+          "states": 2350,
+          "meaningful": 1885,
+          "meaningfulOrbits": 266,
+          "meaningfulFraction": 0.8021276595744681,
+          "uniqueBestAmongMultiple": 900,
+          "meanLegalActions": 4.645531914893617
+        },
+        "movement": {
+          "states": 3188,
+          "meaningful": 2348,
+          "meaningfulOrbits": 311,
+          "meaningfulFraction": 0.7365119196988708,
+          "uniqueBestAmongMultiple": 1192,
+          "meanLegalActions": 4.013801756587202
+        },
+        "maxMovementRemoteness": 10,
+        "blockedDrawStates": 8,
+        "handoffs": {
+          "completedLayouts": 1680,
+          "valuesIncludingBlocked": {
+            "0": 404,
+            "1": 992,
+            "-1": 284
+          },
+          "active": 1672,
+          "values": {
+            "0": 396,
+            "1": 992,
+            "-1": 284
+          },
+          "centreEmpty": 560,
+          "centreEntryBest": {
+            "0": 80,
+            "1": 428,
+            "-1": 52
+          },
+          "blueWinningLayoutsWithoutWinningCentreEntry": 8
+        },
+        "centreException": {
+          "board": "X O .\nX . O\n. X O",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "D",
+            "F",
+            "H",
+            "I"
+          ],
+          "actions": [
+            {
+              "action": "A–E",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "D–E",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "D–G",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "H–G",
+              "value": 1,
+              "distance": 0
+            },
+            {
+              "action": "H–E",
+              "value": -1,
+              "distance": 1
+            }
+          ]
+        },
+        "cyclicComponents": [
+          2744
+        ],
+        "cyclicStates": 2744,
+        "opening": [
+          {
+            "action": "A",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "B",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "C",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "D",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "E",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "F",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "G",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "H",
+            "value": 0,
+            "distance": -1
+          },
+          {
+            "action": "I",
+            "value": 0,
+            "distance": -1
+          }
+        ],
+        "principal": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "F",
+          "E",
+          "F–I",
+          "D–G",
+          "I–H",
+          "E–F",
+          "A–D",
+          "B–A",
+          "C–B",
+          "A–E",
+          "B–C",
+          "E–B",
+          "C–E",
+          "B–A",
+          "E–B"
+        ]
+      },
+      "cap100": {
+        "moveLimit": 100,
+        "repetition": null,
+        "root": 0,
+        "opening": [
+          {
+            "action": "A",
+            "value": 0
+          },
+          {
+            "action": "B",
+            "value": 0
+          },
+          {
+            "action": "C",
+            "value": 0
+          },
+          {
+            "action": "D",
+            "value": 0
+          },
+          {
+            "action": "E",
+            "value": 0
+          },
+          {
+            "action": "F",
+            "value": 0
+          },
+          {
+            "action": "G",
+            "value": 0
+          },
+          {
+            "action": "H",
+            "value": 0
+          },
+          {
+            "action": "I",
+            "value": 0
+          }
+        ],
+        "clockStates": 156182,
+        "clockSymmetry": 20986,
+        "layers": [
+          {
+            "moves": 0,
+            "states": 4030
+          },
+          {
+            "moves": 1,
+            "states": 1672
+          },
+          {
+            "moves": 2,
+            "states": 1520
+          },
+          {
+            "moves": 3,
+            "states": 1520
+          },
+          {
+            "moves": 4,
+            "states": 1520
+          },
+          {
+            "moves": 5,
+            "states": 1520
+          },
+          {
+            "moves": 6,
+            "states": 1520
+          },
+          {
+            "moves": 7,
+            "states": 1520
+          },
+          {
+            "moves": 8,
+            "states": 1520
+          },
+          {
+            "moves": 9,
+            "states": 1520
+          },
+          {
+            "moves": 10,
+            "states": 1520
+          },
+          {
+            "moves": 11,
+            "states": 1520
+          },
+          {
+            "moves": 12,
+            "states": 1520
+          },
+          {
+            "moves": 13,
+            "states": 1520
+          },
+          {
+            "moves": 14,
+            "states": 1520
+          },
+          {
+            "moves": 15,
+            "states": 1520
+          },
+          {
+            "moves": 16,
+            "states": 1520
+          },
+          {
+            "moves": 17,
+            "states": 1520
+          },
+          {
+            "moves": 18,
+            "states": 1520
+          },
+          {
+            "moves": 19,
+            "states": 1520
+          },
+          {
+            "moves": 20,
+            "states": 1520
+          },
+          {
+            "moves": 21,
+            "states": 1520
+          },
+          {
+            "moves": 22,
+            "states": 1520
+          },
+          {
+            "moves": 23,
+            "states": 1520
+          },
+          {
+            "moves": 24,
+            "states": 1520
+          },
+          {
+            "moves": 25,
+            "states": 1520
+          },
+          {
+            "moves": 26,
+            "states": 1520
+          },
+          {
+            "moves": 27,
+            "states": 1520
+          },
+          {
+            "moves": 28,
+            "states": 1520
+          },
+          {
+            "moves": 29,
+            "states": 1520
+          },
+          {
+            "moves": 30,
+            "states": 1520
+          },
+          {
+            "moves": 31,
+            "states": 1520
+          },
+          {
+            "moves": 32,
+            "states": 1520
+          },
+          {
+            "moves": 33,
+            "states": 1520
+          },
+          {
+            "moves": 34,
+            "states": 1520
+          },
+          {
+            "moves": 35,
+            "states": 1520
+          },
+          {
+            "moves": 36,
+            "states": 1520
+          },
+          {
+            "moves": 37,
+            "states": 1520
+          },
+          {
+            "moves": 38,
+            "states": 1520
+          },
+          {
+            "moves": 39,
+            "states": 1520
+          },
+          {
+            "moves": 40,
+            "states": 1520
+          },
+          {
+            "moves": 41,
+            "states": 1520
+          },
+          {
+            "moves": 42,
+            "states": 1520
+          },
+          {
+            "moves": 43,
+            "states": 1520
+          },
+          {
+            "moves": 44,
+            "states": 1520
+          },
+          {
+            "moves": 45,
+            "states": 1520
+          },
+          {
+            "moves": 46,
+            "states": 1520
+          },
+          {
+            "moves": 47,
+            "states": 1520
+          },
+          {
+            "moves": 48,
+            "states": 1520
+          },
+          {
+            "moves": 49,
+            "states": 1520
+          },
+          {
+            "moves": 50,
+            "states": 1520
+          },
+          {
+            "moves": 51,
+            "states": 1520
+          },
+          {
+            "moves": 52,
+            "states": 1520
+          },
+          {
+            "moves": 53,
+            "states": 1520
+          },
+          {
+            "moves": 54,
+            "states": 1520
+          },
+          {
+            "moves": 55,
+            "states": 1520
+          },
+          {
+            "moves": 56,
+            "states": 1520
+          },
+          {
+            "moves": 57,
+            "states": 1520
+          },
+          {
+            "moves": 58,
+            "states": 1520
+          },
+          {
+            "moves": 59,
+            "states": 1520
+          },
+          {
+            "moves": 60,
+            "states": 1520
+          },
+          {
+            "moves": 61,
+            "states": 1520
+          },
+          {
+            "moves": 62,
+            "states": 1520
+          },
+          {
+            "moves": 63,
+            "states": 1520
+          },
+          {
+            "moves": 64,
+            "states": 1520
+          },
+          {
+            "moves": 65,
+            "states": 1520
+          },
+          {
+            "moves": 66,
+            "states": 1520
+          },
+          {
+            "moves": 67,
+            "states": 1520
+          },
+          {
+            "moves": 68,
+            "states": 1520
+          },
+          {
+            "moves": 69,
+            "states": 1520
+          },
+          {
+            "moves": 70,
+            "states": 1520
+          },
+          {
+            "moves": 71,
+            "states": 1520
+          },
+          {
+            "moves": 72,
+            "states": 1520
+          },
+          {
+            "moves": 73,
+            "states": 1520
+          },
+          {
+            "moves": 74,
+            "states": 1520
+          },
+          {
+            "moves": 75,
+            "states": 1520
+          },
+          {
+            "moves": 76,
+            "states": 1520
+          },
+          {
+            "moves": 77,
+            "states": 1520
+          },
+          {
+            "moves": 78,
+            "states": 1520
+          },
+          {
+            "moves": 79,
+            "states": 1520
+          },
+          {
+            "moves": 80,
+            "states": 1520
+          },
+          {
+            "moves": 81,
+            "states": 1520
+          },
+          {
+            "moves": 82,
+            "states": 1520
+          },
+          {
+            "moves": 83,
+            "states": 1520
+          },
+          {
+            "moves": 84,
+            "states": 1520
+          },
+          {
+            "moves": 85,
+            "states": 1520
+          },
+          {
+            "moves": 86,
+            "states": 1520
+          },
+          {
+            "moves": 87,
+            "states": 1520
+          },
+          {
+            "moves": 88,
+            "states": 1520
+          },
+          {
+            "moves": 89,
+            "states": 1520
+          },
+          {
+            "moves": 90,
+            "states": 1520
+          },
+          {
+            "moves": 91,
+            "states": 1520
+          },
+          {
+            "moves": 92,
+            "states": 1520
+          },
+          {
+            "moves": 93,
+            "states": 1520
+          },
+          {
+            "moves": 94,
+            "states": 1520
+          },
+          {
+            "moves": 95,
+            "states": 1520
+          },
+          {
+            "moves": 96,
+            "states": 1520
+          },
+          {
+            "moves": 97,
+            "states": 1520
+          },
+          {
+            "moves": 98,
+            "states": 1520
+          },
+          {
+            "moves": 99,
+            "states": 1520
+          },
+          {
+            "moves": 100,
+            "boundaryDraws": 1372
+          },
+          {
+            "moves": 100,
+            "states": 148
+          }
+        ]
+      },
+      "samples": [
+        {
+          "policy": "uniform",
+          "games": 10000,
+          "seedBase": "0x43454e54",
+          "seedStep": "0x9e3779b9",
+          "rules": {
+            "placementWins": false,
+            "blocked": "draw",
+            "repetition": 3,
+            "moveLimit": 100
+          },
+          "meanPlies": 17.6035,
+          "meanMovementTurns": 11.6035,
+          "mean95PercentMonteCarloInterval": [
+            17.389099243997467,
+            17.817900756002533
+          ],
+          "median": 14,
+          "p90": 32,
+          "minimum": 6,
+          "maximum": 102,
+          "outcomes": {
+            "gold win": 4645,
+            "blue win": 5115,
+            "Position repeated": 200,
+            "No available move": 40
+          },
+          "gamesWithRepeatedPosition": 2461,
+          "firstCentreOccupant": {
+            "blue": 5724,
+            "gold": 4237
+          }
+        },
+        {
+          "policy": "tablebase",
+          "games": 10000,
+          "seedBase": "0x43454e54",
+          "seedStep": "0x9e3779b9",
+          "rules": {
+            "placementWins": false,
+            "blocked": "draw",
+            "repetition": 3,
+            "moveLimit": 100
+          },
+          "meanPlies": 42.0854,
+          "meanMovementTurns": 36.0854,
+          "mean95PercentMonteCarloInterval": [
+            41.72206501877948,
+            42.44873498122052
+          ],
+          "median": 39,
+          "p90": 68,
+          "minimum": 6,
+          "maximum": 106,
+          "outcomes": {
+            "Position repeated": 9916,
+            "Movement limit reached": 31,
+            "No available move": 53
+          },
+          "gamesWithRepeatedPosition": 9947,
+          "firstCentreOccupant": {
+            "blue": 4307,
+            "gold": 5693
+          }
+        }
+      ]
+    },
+    {
+      "restricted": true,
+      "graph": {
+        "states": 4409,
+        "symmetry": 602,
+        "edges": 16200,
+        "root": 1,
+        "rootRemoteness": 9,
+        "winningMovementBound": 3,
+        "activeStates": 4105,
+        "placement": {
+          "states": 1213,
+          "meaningful": 612,
+          "meaningfulOrbits": 83,
+          "meaningfulFraction": 0.5045342126957956,
+          "uniqueBestAmongMultiple": 300,
+          "meanLegalActions": 3.7922506183017313
+        },
+        "movement": {
+          "states": 2892,
+          "meaningful": 2092,
+          "meaningfulOrbits": 275,
+          "meaningfulFraction": 0.7233748271092669,
+          "uniqueBestAmongMultiple": 1088,
+          "meanLegalActions": 4.011065006915629
+        },
+        "maxMovementRemoteness": 10,
+        "blockedDrawStates": 0,
+        "handoffs": {
+          "completedLayouts": 560,
+          "valuesIncludingBlocked": {
+            "0": 80,
+            "1": 436,
+            "-1": 44
+          },
+          "active": 560,
+          "values": {
+            "0": 80,
+            "1": 436,
+            "-1": 44
+          },
+          "centreEmpty": 560,
+          "centreEntryBest": {
+            "0": 80,
+            "1": 428,
+            "-1": 52
+          },
+          "blueWinningLayoutsWithoutWinningCentreEntry": 8
+        },
+        "centreException": {
+          "board": "X O .\nX . O\n. X O",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "D",
+            "F",
+            "H",
+            "I"
+          ],
+          "actions": [
+            {
+              "action": "A–E",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "D–E",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "D–G",
+              "value": -1,
+              "distance": 1
+            },
+            {
+              "action": "H–G",
+              "value": 1,
+              "distance": 0
+            },
+            {
+              "action": "H–E",
+              "value": -1,
+              "distance": 1
+            }
+          ]
+        },
+        "cyclicComponents": [
+          2744
+        ],
+        "cyclicStates": 2744,
+        "opening": [
+          {
+            "action": "A",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "B",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "C",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "D",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "F",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "G",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "H",
+            "value": 1,
+            "distance": 8
+          },
+          {
+            "action": "I",
+            "value": 1,
+            "distance": 8
+          }
+        ],
+        "principal": [
+          "A",
+          "I",
+          "B",
+          "H",
+          "F",
+          "C",
+          "B–E",
+          "C–B",
+          "A–D"
+        ]
+      },
+      "cap100": {
+        "moveLimit": 100,
+        "repetition": null,
+        "root": 1,
+        "opening": [
+          {
+            "action": "A",
+            "value": 1
+          },
+          {
+            "action": "B",
+            "value": 1
+          },
+          {
+            "action": "C",
+            "value": 1
+          },
+          {
+            "action": "D",
+            "value": 1
+          },
+          {
+            "action": "F",
+            "value": 1
+          },
+          {
+            "action": "G",
+            "value": 1
+          },
+          {
+            "action": "H",
+            "value": 1
+          },
+          {
+            "action": "I",
+            "value": 1
+          }
+        ],
+        "clockStates": 153289,
+        "clockSymmetry": 20582,
+        "layers": [
+          {
+            "moves": 0,
+            "states": 1773
+          },
+          {
+            "moves": 1,
+            "states": 1080
+          },
+          {
+            "moves": 2,
+            "states": 1476
+          },
+          {
+            "moves": 3,
+            "states": 1520
+          },
+          {
+            "moves": 4,
+            "states": 1520
+          },
+          {
+            "moves": 5,
+            "states": 1520
+          },
+          {
+            "moves": 6,
+            "states": 1520
+          },
+          {
+            "moves": 7,
+            "states": 1520
+          },
+          {
+            "moves": 8,
+            "states": 1520
+          },
+          {
+            "moves": 9,
+            "states": 1520
+          },
+          {
+            "moves": 10,
+            "states": 1520
+          },
+          {
+            "moves": 11,
+            "states": 1520
+          },
+          {
+            "moves": 12,
+            "states": 1520
+          },
+          {
+            "moves": 13,
+            "states": 1520
+          },
+          {
+            "moves": 14,
+            "states": 1520
+          },
+          {
+            "moves": 15,
+            "states": 1520
+          },
+          {
+            "moves": 16,
+            "states": 1520
+          },
+          {
+            "moves": 17,
+            "states": 1520
+          },
+          {
+            "moves": 18,
+            "states": 1520
+          },
+          {
+            "moves": 19,
+            "states": 1520
+          },
+          {
+            "moves": 20,
+            "states": 1520
+          },
+          {
+            "moves": 21,
+            "states": 1520
+          },
+          {
+            "moves": 22,
+            "states": 1520
+          },
+          {
+            "moves": 23,
+            "states": 1520
+          },
+          {
+            "moves": 24,
+            "states": 1520
+          },
+          {
+            "moves": 25,
+            "states": 1520
+          },
+          {
+            "moves": 26,
+            "states": 1520
+          },
+          {
+            "moves": 27,
+            "states": 1520
+          },
+          {
+            "moves": 28,
+            "states": 1520
+          },
+          {
+            "moves": 29,
+            "states": 1520
+          },
+          {
+            "moves": 30,
+            "states": 1520
+          },
+          {
+            "moves": 31,
+            "states": 1520
+          },
+          {
+            "moves": 32,
+            "states": 1520
+          },
+          {
+            "moves": 33,
+            "states": 1520
+          },
+          {
+            "moves": 34,
+            "states": 1520
+          },
+          {
+            "moves": 35,
+            "states": 1520
+          },
+          {
+            "moves": 36,
+            "states": 1520
+          },
+          {
+            "moves": 37,
+            "states": 1520
+          },
+          {
+            "moves": 38,
+            "states": 1520
+          },
+          {
+            "moves": 39,
+            "states": 1520
+          },
+          {
+            "moves": 40,
+            "states": 1520
+          },
+          {
+            "moves": 41,
+            "states": 1520
+          },
+          {
+            "moves": 42,
+            "states": 1520
+          },
+          {
+            "moves": 43,
+            "states": 1520
+          },
+          {
+            "moves": 44,
+            "states": 1520
+          },
+          {
+            "moves": 45,
+            "states": 1520
+          },
+          {
+            "moves": 46,
+            "states": 1520
+          },
+          {
+            "moves": 47,
+            "states": 1520
+          },
+          {
+            "moves": 48,
+            "states": 1520
+          },
+          {
+            "moves": 49,
+            "states": 1520
+          },
+          {
+            "moves": 50,
+            "states": 1520
+          },
+          {
+            "moves": 51,
+            "states": 1520
+          },
+          {
+            "moves": 52,
+            "states": 1520
+          },
+          {
+            "moves": 53,
+            "states": 1520
+          },
+          {
+            "moves": 54,
+            "states": 1520
+          },
+          {
+            "moves": 55,
+            "states": 1520
+          },
+          {
+            "moves": 56,
+            "states": 1520
+          },
+          {
+            "moves": 57,
+            "states": 1520
+          },
+          {
+            "moves": 58,
+            "states": 1520
+          },
+          {
+            "moves": 59,
+            "states": 1520
+          },
+          {
+            "moves": 60,
+            "states": 1520
+          },
+          {
+            "moves": 61,
+            "states": 1520
+          },
+          {
+            "moves": 62,
+            "states": 1520
+          },
+          {
+            "moves": 63,
+            "states": 1520
+          },
+          {
+            "moves": 64,
+            "states": 1520
+          },
+          {
+            "moves": 65,
+            "states": 1520
+          },
+          {
+            "moves": 66,
+            "states": 1520
+          },
+          {
+            "moves": 67,
+            "states": 1520
+          },
+          {
+            "moves": 68,
+            "states": 1520
+          },
+          {
+            "moves": 69,
+            "states": 1520
+          },
+          {
+            "moves": 70,
+            "states": 1520
+          },
+          {
+            "moves": 71,
+            "states": 1520
+          },
+          {
+            "moves": 72,
+            "states": 1520
+          },
+          {
+            "moves": 73,
+            "states": 1520
+          },
+          {
+            "moves": 74,
+            "states": 1520
+          },
+          {
+            "moves": 75,
+            "states": 1520
+          },
+          {
+            "moves": 76,
+            "states": 1520
+          },
+          {
+            "moves": 77,
+            "states": 1520
+          },
+          {
+            "moves": 78,
+            "states": 1520
+          },
+          {
+            "moves": 79,
+            "states": 1520
+          },
+          {
+            "moves": 80,
+            "states": 1520
+          },
+          {
+            "moves": 81,
+            "states": 1520
+          },
+          {
+            "moves": 82,
+            "states": 1520
+          },
+          {
+            "moves": 83,
+            "states": 1520
+          },
+          {
+            "moves": 84,
+            "states": 1520
+          },
+          {
+            "moves": 85,
+            "states": 1520
+          },
+          {
+            "moves": 86,
+            "states": 1520
+          },
+          {
+            "moves": 87,
+            "states": 1520
+          },
+          {
+            "moves": 88,
+            "states": 1520
+          },
+          {
+            "moves": 89,
+            "states": 1520
+          },
+          {
+            "moves": 90,
+            "states": 1520
+          },
+          {
+            "moves": 91,
+            "states": 1520
+          },
+          {
+            "moves": 92,
+            "states": 1520
+          },
+          {
+            "moves": 93,
+            "states": 1520
+          },
+          {
+            "moves": 94,
+            "states": 1520
+          },
+          {
+            "moves": 95,
+            "states": 1520
+          },
+          {
+            "moves": 96,
+            "states": 1520
+          },
+          {
+            "moves": 97,
+            "states": 1520
+          },
+          {
+            "moves": 98,
+            "states": 1520
+          },
+          {
+            "moves": 99,
+            "states": 1520
+          },
+          {
+            "moves": 100,
+            "boundaryDraws": 1372
+          },
+          {
+            "moves": 100,
+            "states": 148
+          }
+        ]
+      },
+      "samples": [
+        {
+          "policy": "uniform",
+          "games": 10000,
+          "seedBase": "0x43454e54",
+          "seedStep": "0x9e3779b9",
+          "rules": {
+            "placementWins": false,
+            "blocked": "draw",
+            "repetition": 3,
+            "moveLimit": 100
+          },
+          "meanPlies": 17.5538,
+          "meanMovementTurns": 11.553799999999999,
+          "mean95PercentMonteCarloInterval": [
+            17.334551401530767,
+            17.77304859846923
+          ],
+          "median": 14,
+          "p90": 32,
+          "minimum": 7,
+          "maximum": 106,
+          "outcomes": {
+            "gold win": 4460,
+            "blue win": 5302,
+            "Position repeated": 236,
+            "Movement limit reached": 2
+          },
+          "gamesWithRepeatedPosition": 2456,
+          "firstCentreOccupant": {
+            "blue": 7371,
+            "gold": 2469
+          }
+        },
+        {
+          "policy": "tablebase",
+          "games": 10000,
+          "seedBase": "0x43454e54",
+          "seedStep": "0x9e3779b9",
+          "rules": {
+            "placementWins": false,
+            "blocked": "draw",
+            "repetition": 3,
+            "moveLimit": 100
+          },
+          "meanPlies": 9,
+          "meanMovementTurns": 3,
+          "mean95PercentMonteCarloInterval": [
+            9,
+            9
+          ],
+          "median": 9,
+          "p90": 9,
+          "minimum": 9,
+          "maximum": 9,
+          "outcomes": {
+            "blue win": 10000
+          },
+          "gamesWithRepeatedPosition": 0,
+          "firstCentreOccupant": {
+            "blue": 7896,
+            "gold": 1430
+          }
+        }
+      ],
+      "openingCensus": [
+        {
+          "first": "A",
+          "replies": [
+            {
+              "reply": "B",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "C",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "D",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "F",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "G",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "H",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "I",
+              "value": 1,
+              "distance": 7,
+              "thirdPlacements": [
+                {
+                  "action": "B",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "F",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "H",
+                  "value": 0,
+                  "distance": -1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "first": "B",
+          "replies": [
+            {
+              "reply": "A",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 0,
+                  "distance": -1
+                }
+              ]
+            },
+            {
+              "reply": "C",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "D",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "F",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "G",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "I",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            },
+            {
+              "reply": "H",
+              "value": 1,
+              "distance": 7,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "D",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "F",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "G",
+                  "value": 0,
+                  "distance": -1
+                },
+                {
+                  "action": "I",
+                  "value": 0,
+                  "distance": -1
+                }
+              ]
+            },
+            {
+              "reply": "I",
+              "value": 1,
+              "distance": 5,
+              "thirdPlacements": [
+                {
+                  "action": "A",
+                  "value": 1,
+                  "distance": 6
+                },
+                {
+                  "action": "C",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "D",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "F",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "G",
+                  "value": 1,
+                  "distance": 4
+                },
+                {
+                  "action": "H",
+                  "value": 1,
+                  "distance": 4
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

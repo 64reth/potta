@@ -15,7 +15,8 @@
     "test:modes": "node tests/modes.mjs",
     "test:runtime": "node tests/runtime.mjs",
     "research:potta": "node --import tsx tools/analysis/run.ts",
-    "research:verify": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/verify.ts"
+    "research:verify": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/verify.ts",
+    "research:centre": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/restricted-centre.ts"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.65.0",
