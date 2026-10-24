@@ -25,30 +25,20 @@
   --graphite-highlight: #697174;
   --graphite-rim: #9AA3A6;
   --display: "Barlow Condensed", Impact, sans-serif;
-  /* OXBLOOD: welcome, mode selection and setup. */
+  /* Unified OXBLOOD environment for every screen. */
   --background: #30191E;
   --surface: #76333B;
   --accent: #CB8F89;
   --red: #FA655B;
-  --green: #42B879;
+  --green: var(--player-two);
   --text: #FFF1E9;
   --panel: #20171A;
-  --board: #9F373B;
-  --connections: #E3A8A0;
+  --board: #76333B;
+  --connections: #20171A;
   --muted: color-mix(in srgb, var(--text) 80%, var(--background));
   --line: color-mix(in srgb, var(--accent) 45%, transparent);
   color: var(--text);
   background: var(--background);
-}
-:root:has(.play-screen) {
-  /* JOUVERT: gameplay, waiting room, results and in-game dialogs. */
-  --background: #183B30;
-  --surface: #9F373B;
-  --accent: #E3A8A0;
-  --red: #FF6657;
-  --green: #50D58B;
-  --text: #FFF2DE;
-  --panel: #111F1A;
 }
 * {
   box-sizing: border-box;
@@ -128,13 +118,13 @@ p {
 }
 .kicker,
 .eyebrow {
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 2px;
   color: var(--accent);
 }
 .edition {
-  font-size: 10px;
+  font-size: 15px;
   letter-spacing: 1.8px;
 }
 .primary {
@@ -230,7 +220,7 @@ p {
 .welcome-note {
   color: var(--muted);
   margin: 22px 0;
-  font-size: 14px;
+  font-size: 18px;
 }
 .mode-grid {
   display: grid;
@@ -265,7 +255,7 @@ p {
   text-transform: uppercase;
 }
 .mode-copy > span {
-  font-size: 12px;
+  font-size: 18px;
   color: var(--muted);
   font-weight: 400;
   line-height: 1.5;
@@ -287,13 +277,13 @@ p {
   justify-content: space-between;
   gap: 18px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 15px;
   letter-spacing: 1px;
   border-top: 1px solid var(--line);
   padding-top: 18px;
 }
 .setup-content {
-  max-width: 610px;
+  max-width: 1100px;
   margin: 36px auto 35px;
 }
 .setup-content > .eyebrow {
@@ -473,7 +463,7 @@ input:not([type="checkbox"]) {
   min-height: 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(280px, 25vw, 340px);
+  grid-template-columns: minmax(0, 1fr) clamp(380px, 28vw, 440px);
   gap: 28px;
 }
 .board-stage {
@@ -508,13 +498,13 @@ input:not([type="checkbox"]) {
 }
 .connections line {
   stroke: var(--connections);
-  stroke-width: 2;
+  stroke-width: 2.5;
   opacity: 1;
 }
 .sockets circle {
   fill: var(--board);
   stroke: var(--connections);
-  stroke-width: 1.3;
+  stroke-width: 1.8;
 }
 #pieces {
   pointer-events: none;
@@ -617,22 +607,6 @@ input:not([type="checkbox"]) {
   --counter-highlight: color-mix(in srgb, var(--player-two) 45%, var(--text));
   --counter-rim: color-mix(in srgb, var(--text) 65%, var(--player-two));
 }
-/* Numbered crests match the named HUD identities, independent of colour. */
-.piece::before, .mini-piece::before {
-  content: "1";
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: clamp(10px, 1.1vw, 16px);
-  font-weight: 600;
-  color: var(--text);
-  z-index: 1;
-}
-.piece.gold::before, .gold .mini-piece::before {
-  content: "2";
-  color: var(--panel);
-}
 .piece.selected {
   outline: 2px solid var(--text);
   outline-offset: 3px;
@@ -655,8 +629,8 @@ input:not([type="checkbox"]) {
   border-radius: 12px;
   background: var(--panel);
 }
-.hud-label { font-size: 12px; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; }
-.turn-heading h2 { font-size: clamp(30px, 2.7vw, 40px); margin-top: 8px; line-height: 1.05; }
+.hud-label { font-size: 16px; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; }
+.turn-heading h2 { font-size: clamp(36px, 2.4vw, 48px); margin-top: 8px; line-height: 1.05; }
 .turn-row { display: grid; gap: 12px; }
 .player {
   display: flex;
@@ -666,18 +640,18 @@ input:not([type="checkbox"]) {
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
 }
-.player strong { font-size: 19px; }
-.player.active strong::after { content: " · To play"; font-size: 13px; color: var(--text); }
+.player strong { font-size: 24px; }
+.player.active strong::after { content: " · To play"; font-size: 16px; color: var(--text); }
 .turn-tag { display: none; }
-.reserve { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); line-height: 1.4; }
-#phase { grid-row: auto; order: 3; justify-self: start; font-size: 12px; }
+.reserve { display: block; margin-top: 6px; font-size: 18px; color: var(--muted); line-height: 1.4; }
+#phase { grid-row: auto; order: 3; justify-self: start; font-size: 20px; }
 .action-row { display: flex; flex-direction: column; gap: 20px; }
-.status p { font-size: 16px; line-height: 1.65; color: var(--text); }
+.status p { font-size: 18px; line-height: 1.65; color: var(--text); }
 .context-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.context-actions button { font-size: 15px; }
-.context-actions .primary { flex: 1; }
+.context-actions button { font-size: 16px; }
+.context-actions .primary { flex: 1; min-height: 64px; font-size: 22px; }
 .context-actions .quiet { padding: 10px 0; }
-.room-strip { font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px; color: var(--text); }
+.room-strip { font-size: 16px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px; color: var(--text); }
 .room-strip .quiet { color: var(--accent); text-align: left; padding: 6px 0; }
 .room-strip input { font-size: 13px !important; letter-spacing: 0; }
 .finished .player.active strong::after { content: none; }
@@ -781,6 +755,12 @@ input[type="checkbox"] {
     filter: brightness(1.2);
   }
 }
+@media (min-width: 901px) and (max-width: 1199px) {
+  .play-body { grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; }
+  .context-dock { padding: 20px; gap: 18px; }
+  .turn-heading h2 { font-size: 36px; }
+  .player strong { font-size: 22px; }
+}
 @media (max-width: 900px) and (orientation: portrait) {
   .play-screen { height: auto; min-height: 100svh; padding: 0 12px 16px; grid-template-rows: 56px auto; }
   .play-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-content: start; }
@@ -792,16 +772,18 @@ input[type="checkbox"] {
   .player { padding: 0; gap: 8px; border: 0; }
   .player strong { font-size: 15px; }
   .player.active strong::after { content: " •"; }
-  .reserve { font-size: 12px; margin-top: 2px; color: var(--text); }
+  .reserve { font-size: 13px; margin-top: 2px; color: var(--text); }
   .mini-piece { width: 28px; height: 28px; }
   #phase { font-size: 10px; padding: 5px 8px; }
   .board-stage { grid-row: 3; width: 100%; height: min(calc(100vw - 24px), calc(100svh - 208px)); }
   .action-row { grid-row: 4; gap: 10px; }
-  .status p { font-size: 14px; }
+  .status p { font-size: 16px; }
   .context-actions { justify-content: flex-start; }
   .context-actions .quiet { padding: 10px; }
   #room-slot { grid-row: 5; }
-  .room-strip { font-size: 13px; }
+  .room-strip { font-size: 14px; }
+  .context-actions .primary { min-height: 52px; font-size: 18px; }
+  .player.active strong::after { font-size: 13px; }
 }
 @media (max-width: 700px) {
   .selection {
@@ -830,7 +812,7 @@ input[type="checkbox"] {
     font-size: 24px;
   }
   .welcome-note {
-    font-size: 12px;
+    font-size: 16px;
     margin: 16px 0;
   }
   .welcome-note br {
@@ -848,7 +830,7 @@ input[type="checkbox"] {
     font-size: 32px;
   }
   .mode-copy > span {
-    font-size: 11px;
+    font-size: 15px;
   }
   .mode-copy {
     gap: 6px;
@@ -857,18 +839,9 @@ input[type="checkbox"] {
     gap: 12px;
   }
   .selection footer {
-    font-size: 7px;
+    font-size: 12px;
     letter-spacing: 0.6px;
     flex-wrap: wrap;
-  }
-  .setup-content {
-    margin: 26px auto;
-  }
-  .setup-content > h1 {
-    font-size: 46px;
-  }
-  .setup-content > p {
-    font-size: 12px;
   }
   .board-option {
     padding: 14px 6px;
@@ -893,9 +866,6 @@ input[type="checkbox"] {
     margin-top: 18px;
     max-width: none;
   }
-  .setup .selection > header {
-    padding: 0;
-  }
   .kicker,
   .eyebrow {
     font-size: 8px;
@@ -918,11 +888,13 @@ input[type="checkbox"] {
   .turn-row { gap: 6px; }
   .player { padding: 4px 0; gap: 8px; }
   .player strong { font-size: 16px; }
-  .reserve { font-size: 12px; }
+  .reserve { font-size: 13px; }
   .mini-piece { width: 28px; height: 28px; }
   #phase { font-size: 10px; padding: 4px 8px; }
-  .status p { font-size: 14px; line-height: 1.45; }
+  .status p { font-size: 15px; line-height: 1.45; }
   .action-row { gap: 8px; }
+  .context-actions .primary { min-height: 48px; font-size: 18px; }
+  .player.active strong::after { font-size: 12px; }
   .room-strip { font-size: 12px; }
   .selection {
     padding: 12px 25px;
@@ -963,21 +935,20 @@ input[type="checkbox"] {
   gap: 14px;
   min-height: 52px;
   padding: 12px 22px;
-  font-size: 18px;
+  font-size: 20px;
   background: var(--panel);
   border: 1px solid var(--accent);
 }
 .back-menu > span:first-child { font-size: 28px; line-height: 1; }
 .setup .back-menu:hover { background: var(--surface); border-color: var(--text); }
 .setup .setup-content {
-  max-width: 1100px;
   margin: clamp(28px, 3vw, 52px) auto 36px;
 }
-.setup-content > h1 { font-size: clamp(56px, 5vw, 92px); }
-.setup-content > .eyebrow { font-size: 12px; margin-bottom: 16px; }
+.setup-content > h1 { font-size: clamp(56px, 4vw, 72px); }
+.setup-content > .eyebrow { font-size: 15px; margin-bottom: 16px; }
 .setup-content > p { font-size: 18px; margin: 18px 0 28px; }
 .setup .board-options, .setup .difficulties { margin: 28px 0; }
-.setup legend { font-size: 19px; margin-bottom: 16px; }
+.setup legend { font-size: 24px; margin-bottom: 16px; }
 .setup .size-grid { gap: 20px; }
 .setup .board-option {
   min-height: clamp(180px, 14vw, 240px);
@@ -986,7 +957,7 @@ input[type="checkbox"] {
   border-width: 2px;
 }
 .setup .grid-symbol { width: clamp(56px, 4.2vw, 84px); gap: 6px; margin-bottom: 10px; }
-.setup .board-option strong { font-size: clamp(30px, 2.5vw, 44px); }
+.setup .board-option strong { font-size: 30px; }
 .setup .board-option small { font-size: 15px; }
 .board-target { font-size: 15px; font-weight: 600; color: var(--text); }
 .setup .board-option.chosen, .setup .difficulty.chosen {
@@ -1000,7 +971,7 @@ input[type="checkbox"] {
 .setup .difficulties { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .setup .difficulty { min-height: 104px; padding: 20px; flex-direction: column; gap: 10px; justify-content: center; }
 .setup .difficulty strong { font-size: 22px; }
-.setup .difficulty > span { font-size: 15px; line-height: 1.5; }
+.setup .difficulty > span { font-size: 18px; line-height: 1.5; }
 .setup .primary { min-height: 64px; font-size: 20px; padding: 16px 24px; }
 .setup .local-seats { font-size: 17px; margin: 28px 0; }
 .setup .join-divider { font-size: 13px; margin: 32px 0 22px; }
@@ -1008,7 +979,7 @@ input[type="checkbox"] {
 .setup .join-row { gap: 16px; }
 .setup .join-row input, .setup .join-row button { min-height: 56px; font-size: 18px; }
 .setup .rule-note { font-size: 15px !important; }
-.setup .edition { font-size: 12px; }
+.setup .edition { font-size: 15px; }
 @media (min-width: 901px) and (max-height: 900px) {
   .selection.setup { padding-top: 20px; }
   .setup .setup-content { margin-top: 24px; }
