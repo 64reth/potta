@@ -67,10 +67,12 @@ try {
         table: box(".board-stage"),
         piece: box(".piece"),
         target: box(".node"),
+        hud: box(".context-dock"),
         overflow: document.documentElement.scrollWidth > innerWidth,
       };
     });
     assert.equal(sizes.overflow, false);
+    if (width >= 1000) assert.ok(sizes.hud.width >= 280);
     assert.ok(
       sizes.alignment.every((p) => p.error < 0.5 && p.unobstructed),
       "all nine targets align with the graph and receive pointer input",
@@ -81,7 +83,8 @@ try {
       `board must be visible at ${width}×${height}`,
     );
     assert.ok(sizes.target.width >= 44 && sizes.target.height >= 44);
-    assert.ok(sizes.piece.width >= 40);
+    assert.ok(sizes.piece.width >= 22);
+    assert.ok(sizes.piece.width < sizes.arena.width * 0.11);
     assert.ok(
       Math.abs(
         sizes.arena.x +
@@ -91,7 +94,7 @@ try {
     );
     if (width <= 600)
       assert.ok(
-        sizes.arena.width / width >= 0.95 && sizes.arena.width / width <= 1,
+        sizes.arena.width / width >= 0.92 && sizes.arena.width / width <= 1,
       );
     console.log(
       `${width}×${height}: arena ${Math.round(sizes.arena.width)}px, piece ${Math.round(sizes.piece.width)}px, target ${Math.round(sizes.target.width)}px, board extent / playing surface ${((sizes.arena.width * 0.94) / Math.min(sizes.table.width, sizes.table.height)).toFixed(2)}`,

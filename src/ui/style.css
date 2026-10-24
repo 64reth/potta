@@ -18,13 +18,13 @@
 }
 :root {
   font-family: "DM Sans", sans-serif;
-  color: #f5f5ee;
-  background: #101512;
+  color: #f7f3f0;
+  background: #71373b;
   font-synthesis: none;
   color-scheme: dark;
-  --red: #ef514b;
-  --green: #5aab7c;
-  --muted: #a4b5a8;
+  --red: #f0524d;
+  --green: #4aaf73;
+  --muted: #e2d4cf;
   --line: #ffffff22;
   --display: "Barlow Condensed", Impact, sans-serif;
 }
@@ -35,7 +35,7 @@ body {
   margin: 0;
   min-width: 320px;
   background:
-    radial-gradient(ellipse at 15% 20%, #23473655, transparent 65%), #101512;
+    radial-gradient(ellipse at 15% 10%, #92494a66, transparent 70%), #71373b;
 }
 button,
 input {
@@ -109,7 +109,7 @@ p {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: var(--red);
+  color: #ffd6c7;
 }
 .edition {
   font-size: 10px;
@@ -188,7 +188,7 @@ p {
 .hero-logo {
   font-size: clamp(110px, 14vw, 210px);
   letter-spacing: -4px;
-  color: var(--red);
+  color: #f7f3f0;
   line-height: 0.88;
   margin: 22px 0 26px;
   text-shadow: 4px 5px #070c09;
@@ -220,7 +220,7 @@ p {
   gap: 22px;
   text-align: left;
   padding: 25px 26px;
-  background: linear-gradient(135deg, #1d392a99, #16251c88);
+  background: linear-gradient(135deg, #202a24, #141917);
   border: 1px solid #73947d55;
   border-radius: 8px;
   min-height: 120px;
@@ -231,7 +231,7 @@ p {
 }
 .mode-number {
   font: 800 58px/1 var(--display);
-  color: #ad4d49;
+  color: #f0524d;
 }
 .mode-copy {
   display: grid;
@@ -264,7 +264,7 @@ p {
   display: flex;
   justify-content: space-between;
   gap: 18px;
-  color: #879e8d;
+  color: #e2d4cf;
   font-size: 9px;
   letter-spacing: 1px;
   border-top: 1px solid var(--line);
@@ -313,7 +313,7 @@ legend {
 .board-option.chosen,
 .difficulty.chosen {
   border-color: var(--red);
-  background: #52242550;
+  background: #251a1b;
   box-shadow: inset 0 0 0 1px var(--red);
 }
 .board-option strong {
@@ -430,47 +430,43 @@ input:not([type="checkbox"]) {
 .setup-content #setup-error {
   color: #ffb3a8;
 }
+/* The stage receives the space left after a readable HUD. Its square child
+   fits both stage dimensions, rather than deriving its size from the viewport. */
 .play-screen {
   height: 100svh;
   display: grid;
-  grid-template-rows: 52px minmax(0, 1fr);
-  padding: 0 14px 8px;
-  overflow: hidden;
+  grid-template-rows: 64px minmax(0, 1fr);
+  padding: 0 24px 24px;
 }
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  border-bottom: 1px solid #ffffff0d;
+  gap: 16px;
 }
-.game-title {
-  margin-right: auto;
-  font-size: 13px;
-  font-weight: 600;
-}
-.game-title .muted {
-  font-size: 11px;
-  margin-left: 8px;
-}
+.topbar #pause { margin-left: auto; }
+.game-title { font-size: 16px; font-weight: 600; }
+.game-title .muted { font-size: 14px; margin-left: 8px; }
 .play-body {
   min-height: 0;
+  min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(190px, 19vw, 250px);
-  gap: 24px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 25vw, 340px);
+  gap: 28px;
 }
 .board-stage {
   display: grid;
   place-items: center;
   min-width: 0;
   min-height: 0;
+  container-type: size;
 }
 .arena {
   position: relative;
+  width: min(100cqw, 100cqh);
   aspect-ratio: 1;
-  width: min(100%, calc(100svh - 60px));
-  max-height: 100%;
+  background: #0e1110;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px #290d1730;
 }
 .board,
 .node-layer,
@@ -481,15 +477,16 @@ input:not([type="checkbox"]) {
   height: 100%;
 }
 .board {
-  overflow: visible;
+  overflow: hidden;
+  border-radius: inherit;
 }
 .connections line {
-  stroke: #6a967c;
+  stroke: #71877a;
   stroke-width: 2;
-  opacity: 0.58;
+  opacity: 0.85;
 }
 .sockets circle {
-  fill: #14261b;
+  fill: #0e1110;
   stroke: #afc7b3;
   stroke-width: 1.3;
 }
@@ -521,7 +518,7 @@ input:not([type="checkbox"]) {
 }
 .node-letter {
   position: absolute;
-  top: 91%;
+  top: 80%;
   font-size: clamp(8px, 1vw, 11px);
   font-weight: 400;
   color: #819d8a;
@@ -557,7 +554,7 @@ input:not([type="checkbox"]) {
   background: radial-gradient(
     circle at 32% 20%,
     #ffb6a3,
-    #d94c43 32%,
+    #f0524d 32%,
     #842622 75%,
     #411314
   );
@@ -568,8 +565,8 @@ input:not([type="checkbox"]) {
 }
 .piece {
   position: absolute;
-  width: max(36px, var(--stone));
-  height: max(36px, var(--stone));
+  width: max(22px, var(--stone));
+  height: max(22px, var(--stone));
   transform: translate(-50%, -50%);
   transition:
     left 0.3s cubic-bezier(0.2, 0.8, 0.3, 1),
@@ -591,7 +588,7 @@ input:not([type="checkbox"]) {
   background: radial-gradient(
     circle at 32% 20%,
     #a9dfb0,
-    #4c9b6d 32%,
+    #4aaf73 32%,
     #205b43 75%,
     #14362b
   );
@@ -614,115 +611,40 @@ input:not([type="checkbox"]) {
 .context-dock {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-self: stretch;
+  gap: 22px;
   min-height: 0;
   overflow-y: auto;
-  padding: 20px 0 14px;
+  padding: 24px;
+  border: 1px solid #ffffff24;
+  border-radius: 12px;
+  background: #171b19;
 }
-.turn-row {
-  display: grid;
-  gap: 15px;
-}
+.hud-label { font-size: 12px; letter-spacing: 1.5px; color: #d5c4bf; font-weight: 600; }
+.turn-heading h2 { font-size: clamp(30px, 2.7vw, 40px); margin-top: 8px; line-height: 1.05; }
+.turn-row { display: grid; gap: 12px; }
 .player {
   display: flex;
   align-items: center;
-  gap: 10px;
-  opacity: 0.52;
+  gap: 12px;
   min-width: 0;
+  padding: 12px 0;
+  border-bottom: 1px solid #ffffff19;
 }
-.player.active {
-  opacity: 1;
-}
-.player strong {
-  font-size: 15px;
-}
-.turn-tag {
-  margin-left: auto;
-  font-size: 8px;
-  letter-spacing: 1px;
-  color: var(--red);
-  visibility: hidden;
-}
-.gold .turn-tag {
-  color: var(--green);
-}
-.active .turn-tag {
-  visibility: visible;
-}
-.reserve {
-  display: flex;
-  gap: 4px;
-  margin-top: 5px;
-}
-.reserve i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--red);
-}
-.gold .reserve i {
-  background: var(--green);
-}
-.reserve .used {
-  opacity: 0.2;
-}
-#phase {
-  grid-row: 1;
-  justify-self: start;
-}
-.action-row {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.status h2 {
-  font-size: 28px;
-  line-height: 1.1;
-}
-.status p {
-  font-size: 12px;
-  color: #b6c8b6;
-  line-height: 1.6;
-  margin-top: 8px;
-}
-.context-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.context-actions .primary {
-  flex: 1;
-}
-.context-actions .quiet {
-  font-size: 11px;
-  padding: 10px 0;
-}
-.room-strip {
-  font-size: 11px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-  color: #bad5bf;
-}
-.room-strip .quiet {
-  text-align: left;
-  color: var(--red);
-  padding: 6px 0;
-}
-.room-strip input {
-  font-size: 10px !important;
-  letter-spacing: 0;
-}
-.finished .turn-row {
-  opacity: 0.6;
-}
-.finished .status h2 {
-  color: #fff;
-  font-size: 40px;
-}
+.player strong { font-size: 19px; }
+.player.active strong::after { content: " · To play"; font-size: 13px; color: #f7f3f0; }
+.turn-tag { display: none; }
+.reserve { display: block; margin-top: 4px; font-size: 14px; color: #d3d9d2; line-height: 1.4; }
+#phase { grid-row: auto; order: 3; justify-self: start; font-size: 12px; }
+.action-row { display: flex; flex-direction: column; gap: 20px; }
+.status p { font-size: 16px; line-height: 1.65; color: #e2e5df; }
+.context-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.context-actions button { font-size: 15px; }
+.context-actions .primary { flex: 1; }
+.context-actions .quiet { padding: 10px 0; }
+.room-strip { font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px; color: #e2e5df; }
+.room-strip .quiet { color: #ffaaa1; text-align: left; padding: 6px 0; }
+.room-strip input { font-size: 13px !important; letter-spacing: 0; }
+.finished .player.active strong::after { content: none; }
 .win-line {
   stroke: var(--red);
   stroke-width: 5;
@@ -738,7 +660,7 @@ input:not([type="checkbox"]) {
   animation: celebrate 1.5s ease-in-out infinite alternate;
 }
 dialog {
-  color: #f5f5ee;
+  color: #f7f3f0;
   background: #182a1e;
   border: 1px solid #65836d77;
   border-radius: 12px;
@@ -823,106 +745,27 @@ input[type="checkbox"] {
     filter: brightness(1.2);
   }
 }
-@media (max-width: 800px) and (orientation: portrait) {
-  .play-screen {
-    height: auto;
-    min-height: 100svh;
-    padding: 0 4px 8px;
-    overflow: visible;
-  }
-  .topbar {
-    padding: 0 8px;
-    min-height: 48px;
-  }
-  .play-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .board-stage {
-    width: 100%;
-    flex: none;
-  }
-  .arena {
-    width: 100%;
-    max-height: none;
-  }
-  .context-dock {
-    padding: 12px 12px 16px;
-    gap: 12px;
-    overflow: visible;
-  }
-  .turn-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .player {
-    gap: 7px;
-  }
-  .player strong {
-    font-size: 12px;
-  }
-  .turn-tag {
-    display: none;
-  }
-  .player.active strong {
-    color: var(--red);
-  }
-  .player.gold.active strong {
-    color: var(--green);
-  }
-  #phase {
-    font-size: 8px;
-    padding: 5px 8px;
-    order: 1;
-  }
-  .player.gold {
-    order: 2;
-  }
-  .action-row {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: 5px;
-  }
-  .status h2 {
-    font-size: 25px;
-  }
-  .status p {
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  .context-actions {
-    flex-shrink: 0;
-    justify-content: flex-end;
-    max-width: 48%;
-    gap: 4px;
-  }
-  .context-actions button {
-    font-size: 11px;
-  }
-  .context-actions .quiet {
-    padding: 6px;
-  }
-  .room-strip {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .room-strip input {
-    flex-basis: 100%;
-  }
-  .finished .status h2 {
-    font-size: 32px;
-  }
-  .mini-piece {
-    width: 23px;
-    height: 23px;
-  }
+@media (max-width: 900px) and (orientation: portrait) {
+  .play-screen { height: auto; min-height: 100svh; padding: 0 12px 16px; grid-template-rows: 56px auto; }
+  .play-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-content: start; }
+  .context-dock { display: contents; }
+  .turn-heading { grid-row: 1; display: flex; align-items: baseline; gap: 12px; }
+  .hud-label { font-size: 10px; flex-shrink: 0; }
+  .turn-heading h2 { font-size: 25px; margin: 0; }
+  .turn-row { grid-row: 2; display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: center; }
+  .player { padding: 0; gap: 8px; border: 0; }
+  .player strong { font-size: 15px; }
+  .player.active strong::after { content: " •"; }
+  .reserve { font-size: 12px; margin-top: 2px; color: #f1e5e0; }
+  .mini-piece { width: 24px; height: 24px; }
+  #phase { font-size: 10px; padding: 5px 8px; }
+  .board-stage { grid-row: 3; width: 100%; height: min(calc(100vw - 24px), calc(100svh - 208px)); }
+  .action-row { grid-row: 4; gap: 10px; }
+  .status p { font-size: 14px; }
+  .context-actions { justify-content: flex-start; }
+  .context-actions .quiet { padding: 10px; }
+  #room-slot { grid-row: 5; }
+  .room-strip { font-size: 13px; }
 }
 @media (max-width: 700px) {
   .selection {
@@ -1030,69 +873,21 @@ input[type="checkbox"] {
     gap: 3px;
   }
 }
-@media (max-height: 500px) and (orientation: landscape) {
-  .play-screen {
-    grid-template-rows: 44px minmax(0, 1fr);
-    padding: 0 6px 4px;
-  }
-  .arena {
-    width: min(100%, calc(100svh - 50px));
-  }
-  .play-body {
-    grid-template-columns: minmax(0, 1fr) 210px;
-    gap: 12px;
-  }
-  .topbar .brand {
-    font-size: 29px;
-  }
-  .context-dock {
-    padding: 8px 0;
-    gap: 10px;
-  }
-  .turn-row {
-    gap: 8px;
-  }
-  .player {
-    min-height: 26px;
-  }
-  .player strong {
-    font-size: 12px;
-  }
-  .mini-piece {
-    width: 22px;
-    height: 22px;
-  }
-  #phase {
-    font-size: 8px;
-    padding: 3px 8px;
-  }
-  .status h2 {
-    font-size: 22px;
-  }
-  .status p {
-    font-size: 11px;
-    margin-top: 5px;
-  }
-  .action-row {
-    gap: 8px;
-  }
-  .context-actions button {
-    font-size: 11px;
-  }
-  .room-strip {
-    gap: 4px;
-    margin-top: 0;
-    font-size: 10px;
-  }
-  .room-strip .quiet {
-    font-size: 10px;
-  }
-  .finished .turn-row {
-    display: none;
-  }
-  .finished .status h2 {
-    font-size: 32px;
-  }
+@media (max-height: 540px) and (orientation: landscape) {
+  .play-screen { grid-template-rows: 48px minmax(0, 1fr); padding: 0 12px 12px; }
+  .play-body { grid-template-columns: minmax(0, 1fr) clamp(230px, 35vw, 300px); gap: 16px; }
+  .context-dock { padding: 14px 18px; gap: 12px; }
+  .hud-label { font-size: 10px; }
+  .turn-heading h2 { font-size: 27px; margin-top: 4px; }
+  .turn-row { gap: 6px; }
+  .player { padding: 4px 0; gap: 8px; }
+  .player strong { font-size: 16px; }
+  .reserve { font-size: 12px; }
+  .mini-piece { width: 23px; height: 23px; }
+  #phase { font-size: 10px; padding: 4px 8px; }
+  .status p { font-size: 14px; line-height: 1.45; }
+  .action-row { gap: 8px; }
+  .room-strip { font-size: 12px; }
   .selection {
     padding: 12px 25px;
   }

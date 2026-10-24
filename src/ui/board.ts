@@ -34,12 +34,12 @@ export function mountBoard(
   const percent = (v: number) => (v - 60) / 4.8,
     name = (p: PlayerId) => (p === "blue" ? "Red" : "Green");
   const count = (n: number) => Array.from({ length: n }, (_, i) => i);
-  app.innerHTML = `<main class="play-screen" style="--stone:${g.size === 3 ? 14 : g.size === 4 ? 11 : 9}%;--target:${g.size === 3 ? 18 : g.size === 4 ? 15 : 12}%" data-size="${g.size}">
+  app.innerHTML = `<main class="play-screen" style="--stone:${g.size === 3 ? 9 : g.size === 4 ? 7 : 5.8}%;--target:${g.size === 3 ? 18 : g.size === 4 ? 15 : 12}%" data-size="${g.size}">
  <header class="topbar"><button id="menu" class="brand" aria-label="Main menu">POTTA<span>●</span></button><span class="game-title">${g.name} <span class="muted">${g.size} × ${g.size}</span></span><button id="pause" class="icon-button" aria-label="Pause / settings">☰</button></header>
  <section class="play-body"><div class="board-stage"><div class="arena"><svg class="board" viewBox="60 60 480 480" role="group" aria-label="${g.size} by ${g.size} Potta board"><g class="connections">${g.edges.map(([a, b]) => `<line x1="${coordinates[a][0]}" y1="${coordinates[a][1]}" x2="${coordinates[b][0]}" y2="${coordinates[b][1]}"/>`).join("")}</g><g class="sockets">${nodes.map((n) => `<circle cx="${coordinates[n][0]}" cy="${coordinates[n][1]}" r="${g.size === 3 ? 7 : 5}"/>`).join("")}</g><g id="winning"></g></svg>
  <div class="node-layer">${nodes.map((n) => `<button class="node" data-node="${n}" style="left:${percent(coordinates[n][0])}%;top:${percent(coordinates[n][1])}%"><span class="destination"></span><span class="node-letter">${n}</span></button>`).join("")}</div><div id="pieces" aria-hidden="true"></div></div></div>
- <section class="context-dock" aria-label="Current game"><div class="turn-row"><div class="player blue" id="blue-player"><span class="mini-piece"></span><div><strong>Red</strong><span class="reserve" id="blue-reserve"></span></div><span class="turn-tag">TO PLAY</span></div><span id="phase" class="pill"></span><div class="player gold" id="gold-player"><span class="mini-piece"></span><div><strong>Green</strong><span class="reserve" id="gold-reserve"></span></div><span class="turn-tag">TO PLAY</span></div></div>
- <div class="action-row"><div class="status" role="status" aria-live="polite" aria-atomic="true"><h2 id="status-title"></h2><p id="instruction"></p></div><div class="context-actions"><button id="restart" class="primary">Rematch ↻</button><button id="cancel-selection" class="quiet" hidden>Cancel selection</button><button id="details" class="quiet">Details <span>↗</span></button></div></div><div id="room-slot"></div></section></section>
+ <section class="context-dock" aria-label="Current game"><div class="turn-heading" role="status" aria-live="polite" aria-atomic="true"><span class="hud-label">CURRENT TURN</span><h2 id="status-title"></h2></div><div class="turn-row"><div class="player blue" id="blue-player"><span class="mini-piece"></span><div><strong>Red</strong><span class="reserve" id="blue-reserve"></span></div><span class="turn-tag">TO PLAY</span></div><span id="phase" class="pill"></span><div class="player gold" id="gold-player"><span class="mini-piece"></span><div><strong>Green</strong><span class="reserve" id="gold-reserve"></span></div><span class="turn-tag">TO PLAY</span></div></div>
+ <div class="action-row"><div class="status" role="status" aria-live="polite"><p id="instruction"></p></div><div class="context-actions"><button id="restart" class="primary">Rematch ↻</button><button id="cancel-selection" class="quiet" hidden>Cancel selection</button><button id="details" class="quiet">Details <span>↗</span></button></div></div><div id="room-slot"></div></section></section>
  <dialog id="pause-dialog"><div class="panel-heading"><div><span class="kicker">TAKE A MOMENT</span><h2>Pause / settings</h2></div><button class="icon-button" id="close-pause" aria-label="Close pause">×</button></div><p id="pause-note">Your game is saved. Continue when you’re ready.</p><button id="continue" class="primary full">Continue game →</button><label class="setting-row"><span>Reduced motion</span><input type="checkbox" id="motion"></label><button id="rules" class="full">How to play</button><button id="new-game" class="full">New game</button><button id="leave-menu" class="quiet full">Main menu</button></dialog>
  <dialog id="rules-dialog"><div class="panel-heading"><h2>${g.name}: how to play</h2><button class="icon-button close-rules" aria-label="Close instructions">×</button></div><p>Take turns placing <strong>${g.pieces} stones each</strong> on empty intersections. Red starts.</p><p>After all ${g.pieces * 2} stones are placed, move one stone along one connected edge to an empty intersection. No jumping. Crossings without an intersection are not playable.</p><p>During movement, align <strong>${g.target} consecutive stones</strong> along a drawn row, column or main diagonal to win. ${g.size > 3 ? "Four and Five are experimental modern variants." : ""}</p><p class="rule-note">Placement alignments do not win. A blocked turn, three occurrences of a position with the same player to act, or 100 movement turns draws. These draw and placement-win decisions remain provisional.</p><button class="primary full close-rules">Back to game</button></dialog>
  <dialog id="details-dialog"><div class="panel-heading"><h2>At the table</h2><button class="icon-button" id="close-details" aria-label="Close details">×</button></div><p id="mode-label"></p><p>${g.pieces} stones each · ${g.target} consecutive to win</p><p>${g.size > 3 ? "Experimental modern variant" : "Traditional board · provisional adjudication rules"}</p><button id="detail-rules" class="full">How to play</button></dialog>
@@ -66,9 +66,9 @@ export function mountBoard(
         if (![...pieceIds[p].values()].includes(id))
           document.getElementById(`piece-${p}-${id}`)?.remove();
       $(`${p}-player`).classList.toggle("active", !ended && s.turn === p);
-      $(`${p}-reserve`).innerHTML = count(g.pieces)
-        .map((i) => `<i class="${i < s.placed[p] ? "used" : ""}"></i>`)
-        .join("");
+      $(`${p}-reserve`).textContent = s.phase === "placement"
+        ? `${g.pieces - s.placed[p]} of ${g.pieces} left to place`
+        : `${g.pieces} stones on board`;
       for (const [node, id] of pieceIds[p]) {
         let el = document.getElementById(`piece-${p}-${id}`);
         if (!el) {
@@ -146,6 +146,7 @@ export function mountBoard(
     $("cancel-selection").hidden = !selected;
     $("details").hidden = !!selected;
     app.querySelector(".play-screen")!.classList.toggle("finished", ended);
+    app.querySelector(".hud-label")!.textContent = ended ? "ROUND RESULT" : "CURRENT TURN";
     $("new-game").hidden = !!context.online;
   }
   app.querySelectorAll<HTMLButtonElement>("[data-node]").forEach(
