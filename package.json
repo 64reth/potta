@@ -13,7 +13,9 @@
     "test:layout": "node tests/layout.mjs",
     "dev:online": "cf dev",
     "test:modes": "node tests/modes.mjs",
-    "test:runtime": "node tests/runtime.mjs"
+    "test:runtime": "node tests/runtime.mjs",
+    "research:potta": "node --import tsx tools/analysis/run.ts",
+    "research:verify": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/verify.ts"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.65.0",

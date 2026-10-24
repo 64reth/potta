@@ -1,0 +1,2557 @@
+{
+  "format": 1,
+  "engineVersion": 1,
+  "sources": {
+    "src/engine/game.ts": "96715959afa6ad2fb5a4849c757150a5f17a3eef9183b775d4e2791885a32d6c",
+    "src/engine/geometry.ts": "beda72a173b32465fbfd5b372d721c8a434781d345e2cd862ea344fc7b026d1e",
+    "src/engine/lines.ts": "1d0700440c2de5580a96a416fd39551e72efdae18fc0428a8c177cf8054ba8d3",
+    "src/engine/session.ts": "41180ba1b63eac80e464663886d4eec75d7c0477bad55466127cafcdbe1b73cd",
+    "src/ai/search.ts": "d9d24131db9cf3f29a5ad88303940210452381b350aeb91dc23afa270e453684"
+  },
+  "config": {
+    "blocked": "draw",
+    "infinitePlay": "draw for mathematical classification only"
+  },
+  "variants": [
+    {
+      "placementWins": false,
+      "states": 5850,
+      "symmetry": 811,
+      "edges": 23713,
+      "counts": {
+        "total": 5850,
+        "blue": 2004,
+        "gold": 1960,
+        "draw": 1886
+      },
+      "playing": {
+        "total": 5538,
+        "blue": 1848,
+        "gold": 1812,
+        "draw": 1878
+      },
+      "movement": {
+        "total": 3188,
+        "blue": 1276,
+        "gold": 1204,
+        "draw": 708
+      },
+      "root": 0,
+      "distance": -1,
+      "movementBound": null,
+      "maxDistance": 11,
+      "maxShortestReach": 8,
+      "opening": [
+        {
+          "action": "A",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "B",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "C",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "D",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "E",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "F",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "G",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "H",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "I",
+          "value": 0,
+          "distance": -1
+        }
+      ],
+      "principal": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+        "E",
+        "F–I",
+        "D–G",
+        "I–H",
+        "E–F",
+        "A–D",
+        "B–A",
+        "C–B",
+        "A–E",
+        "B–C",
+        "E–B",
+        "C–E",
+        "B–A",
+        "E–B"
+      ],
+      "principalEnd": {
+        "board": "O X .\nX . O\nO X .",
+        "cycle": true
+      },
+      "cyclicComponents": [
+        2744
+      ],
+      "strategy": {
+        "historyExample": {
+          "id": 2350,
+          "board": "X O X\nO X O\n. . .",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G",
+            "F",
+            "G–H",
+            "D–G",
+            "H–E",
+            "G–D"
+          ],
+          "loop": [
+            "E–H",
+            "D–G",
+            "H–E",
+            "G–D"
+          ],
+          "drawAction": "E–H",
+          "freshWinner": -1
+        },
+        "branching": {
+          "1": 160,
+          "2": 320,
+          "3": 512,
+          "4": 2180,
+          "5": 1656,
+          "6": 604,
+          "7": 96,
+          "8": 9,
+          "9": 1
+        },
+        "differentOutcomes": 4233,
+        "meaningfulSymmetry": 577,
+        "oneBest": 2252,
+        "multipleBest": 3286,
+        "onlyAction": 160,
+        "center": {
+          "toMove": {
+            "states": 1076,
+            "toMoveWins": 688,
+            "opponentWins": 184,
+            "draws": 204,
+            "meanMobility": 4.687732342007435
+          },
+          "opponent": {
+            "states": 1032,
+            "toMoveWins": 392,
+            "opponentWins": 296,
+            "draws": 344,
+            "meanMobility": 2.604651162790698
+          },
+          "vacant": {
+            "states": 1080,
+            "toMoveWins": 832,
+            "opponentWins": 88,
+            "draws": 160,
+            "meanMobility": 4.688888888888889
+          }
+        },
+        "centerLosingExample": {
+          "id": 2350,
+          "board": "X O X\nO X O\n. . .",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "distance": 2
+        },
+        "forks": 64,
+        "forkSymmetry": 8,
+        "forkExample": {
+          "id": 2430,
+          "attacker": "gold",
+          "board": "X O .\nX O X\nO . .",
+          "turn": "blue",
+          "phase": "movement",
+          "threats": [
+            {
+              "action": "B–C",
+              "line": "CEG"
+            },
+            {
+              "action": "G–H",
+              "line": "BEH"
+            }
+          ],
+          "path": [
+            "A",
+            "B",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "value": -1
+        },
+        "cycleExample": {
+          "start": 3492,
+          "board": ". O X\nX X O\nO . .",
+          "path": [
+            "C",
+            "B",
+            "D",
+            "F",
+            "E",
+            "G"
+          ],
+          "moves": [
+            "E–H",
+            "B–A",
+            "H–E",
+            "A–B"
+          ],
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "winningExit": [
+            "D–A",
+            "G–H",
+            "E–D",
+            "F–E"
+          ]
+        },
+        "cyclicStates": 2744,
+        "cyclicEdges": 9952,
+        "movementRemoteness": {
+          "min": 1,
+          "max": 10
+        },
+        "longestExample": {
+          "id": 90,
+          "winner": -1,
+          "board": "X . O\nX . .\n. . .",
+          "phase": "placement",
+          "turn": "gold",
+          "distance": 11,
+          "path": [
+            "A",
+            "C",
+            "D"
+          ]
+        }
+      },
+      "caps": [
+        {
+          "moveLimit": 2,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": 0
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": 0
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": 0
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": 0
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 7222,
+          "clockSymmetry": 994,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 4030
+            },
+            {
+              "moves": 1,
+              "states": 1672
+            },
+            {
+              "moves": 2,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 2,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 3,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": 0
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": 0
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": 0
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": 0
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 8742,
+          "clockSymmetry": 1198,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 4030
+            },
+            {
+              "moves": 1,
+              "states": 1672
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 3,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 4,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": 0
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": 0
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": 0
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": 0
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 10262,
+          "clockSymmetry": 1402,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 4030
+            },
+            {
+              "moves": 1,
+              "states": 1672
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 4,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 10,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": 0
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": 0
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": 0
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": 0
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 19382,
+          "clockSymmetry": 2626,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 4030
+            },
+            {
+              "moves": 1,
+              "states": 1672
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "states": 1520
+            },
+            {
+              "moves": 5,
+              "states": 1520
+            },
+            {
+              "moves": 6,
+              "states": 1520
+            },
+            {
+              "moves": 7,
+              "states": 1520
+            },
+            {
+              "moves": 8,
+              "states": 1520
+            },
+            {
+              "moves": 9,
+              "states": 1520
+            },
+            {
+              "moves": 10,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 10,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 100,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": 0
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": 0
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": 0
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": 0
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 156182,
+          "clockSymmetry": 20986,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 4030
+            },
+            {
+              "moves": 1,
+              "states": 1672
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "states": 1520
+            },
+            {
+              "moves": 5,
+              "states": 1520
+            },
+            {
+              "moves": 6,
+              "states": 1520
+            },
+            {
+              "moves": 7,
+              "states": 1520
+            },
+            {
+              "moves": 8,
+              "states": 1520
+            },
+            {
+              "moves": 9,
+              "states": 1520
+            },
+            {
+              "moves": 10,
+              "states": 1520
+            },
+            {
+              "moves": 11,
+              "states": 1520
+            },
+            {
+              "moves": 12,
+              "states": 1520
+            },
+            {
+              "moves": 13,
+              "states": 1520
+            },
+            {
+              "moves": 14,
+              "states": 1520
+            },
+            {
+              "moves": 15,
+              "states": 1520
+            },
+            {
+              "moves": 16,
+              "states": 1520
+            },
+            {
+              "moves": 17,
+              "states": 1520
+            },
+            {
+              "moves": 18,
+              "states": 1520
+            },
+            {
+              "moves": 19,
+              "states": 1520
+            },
+            {
+              "moves": 20,
+              "states": 1520
+            },
+            {
+              "moves": 21,
+              "states": 1520
+            },
+            {
+              "moves": 22,
+              "states": 1520
+            },
+            {
+              "moves": 23,
+              "states": 1520
+            },
+            {
+              "moves": 24,
+              "states": 1520
+            },
+            {
+              "moves": 25,
+              "states": 1520
+            },
+            {
+              "moves": 26,
+              "states": 1520
+            },
+            {
+              "moves": 27,
+              "states": 1520
+            },
+            {
+              "moves": 28,
+              "states": 1520
+            },
+            {
+              "moves": 29,
+              "states": 1520
+            },
+            {
+              "moves": 30,
+              "states": 1520
+            },
+            {
+              "moves": 31,
+              "states": 1520
+            },
+            {
+              "moves": 32,
+              "states": 1520
+            },
+            {
+              "moves": 33,
+              "states": 1520
+            },
+            {
+              "moves": 34,
+              "states": 1520
+            },
+            {
+              "moves": 35,
+              "states": 1520
+            },
+            {
+              "moves": 36,
+              "states": 1520
+            },
+            {
+              "moves": 37,
+              "states": 1520
+            },
+            {
+              "moves": 38,
+              "states": 1520
+            },
+            {
+              "moves": 39,
+              "states": 1520
+            },
+            {
+              "moves": 40,
+              "states": 1520
+            },
+            {
+              "moves": 41,
+              "states": 1520
+            },
+            {
+              "moves": 42,
+              "states": 1520
+            },
+            {
+              "moves": 43,
+              "states": 1520
+            },
+            {
+              "moves": 44,
+              "states": 1520
+            },
+            {
+              "moves": 45,
+              "states": 1520
+            },
+            {
+              "moves": 46,
+              "states": 1520
+            },
+            {
+              "moves": 47,
+              "states": 1520
+            },
+            {
+              "moves": 48,
+              "states": 1520
+            },
+            {
+              "moves": 49,
+              "states": 1520
+            },
+            {
+              "moves": 50,
+              "states": 1520
+            },
+            {
+              "moves": 51,
+              "states": 1520
+            },
+            {
+              "moves": 52,
+              "states": 1520
+            },
+            {
+              "moves": 53,
+              "states": 1520
+            },
+            {
+              "moves": 54,
+              "states": 1520
+            },
+            {
+              "moves": 55,
+              "states": 1520
+            },
+            {
+              "moves": 56,
+              "states": 1520
+            },
+            {
+              "moves": 57,
+              "states": 1520
+            },
+            {
+              "moves": 58,
+              "states": 1520
+            },
+            {
+              "moves": 59,
+              "states": 1520
+            },
+            {
+              "moves": 60,
+              "states": 1520
+            },
+            {
+              "moves": 61,
+              "states": 1520
+            },
+            {
+              "moves": 62,
+              "states": 1520
+            },
+            {
+              "moves": 63,
+              "states": 1520
+            },
+            {
+              "moves": 64,
+              "states": 1520
+            },
+            {
+              "moves": 65,
+              "states": 1520
+            },
+            {
+              "moves": 66,
+              "states": 1520
+            },
+            {
+              "moves": 67,
+              "states": 1520
+            },
+            {
+              "moves": 68,
+              "states": 1520
+            },
+            {
+              "moves": 69,
+              "states": 1520
+            },
+            {
+              "moves": 70,
+              "states": 1520
+            },
+            {
+              "moves": 71,
+              "states": 1520
+            },
+            {
+              "moves": 72,
+              "states": 1520
+            },
+            {
+              "moves": 73,
+              "states": 1520
+            },
+            {
+              "moves": 74,
+              "states": 1520
+            },
+            {
+              "moves": 75,
+              "states": 1520
+            },
+            {
+              "moves": 76,
+              "states": 1520
+            },
+            {
+              "moves": 77,
+              "states": 1520
+            },
+            {
+              "moves": 78,
+              "states": 1520
+            },
+            {
+              "moves": 79,
+              "states": 1520
+            },
+            {
+              "moves": 80,
+              "states": 1520
+            },
+            {
+              "moves": 81,
+              "states": 1520
+            },
+            {
+              "moves": 82,
+              "states": 1520
+            },
+            {
+              "moves": 83,
+              "states": 1520
+            },
+            {
+              "moves": 84,
+              "states": 1520
+            },
+            {
+              "moves": 85,
+              "states": 1520
+            },
+            {
+              "moves": 86,
+              "states": 1520
+            },
+            {
+              "moves": 87,
+              "states": 1520
+            },
+            {
+              "moves": 88,
+              "states": 1520
+            },
+            {
+              "moves": 89,
+              "states": 1520
+            },
+            {
+              "moves": 90,
+              "states": 1520
+            },
+            {
+              "moves": 91,
+              "states": 1520
+            },
+            {
+              "moves": 92,
+              "states": 1520
+            },
+            {
+              "moves": 93,
+              "states": 1520
+            },
+            {
+              "moves": 94,
+              "states": 1520
+            },
+            {
+              "moves": 95,
+              "states": 1520
+            },
+            {
+              "moves": 96,
+              "states": 1520
+            },
+            {
+              "moves": 97,
+              "states": 1520
+            },
+            {
+              "moves": 98,
+              "states": 1520
+            },
+            {
+              "moves": 99,
+              "states": 1520
+            },
+            {
+              "moves": 100,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 100,
+              "states": 148
+            }
+          ]
+        }
+      ],
+      "historyRoots": [
+        {
+          "repetition": 2,
+          "moveLimit": null,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 2,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 3,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 4,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 10,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 100,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": null,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 2,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 3,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 4,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 10,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 100,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        }
+      ],
+      "samples": [
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": false,
+          "repetition": 2,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 368,
+            "blue win": 406,
+            "Position repeated": 223,
+            "No available move": 3
+          },
+          "repeatedGames": 223,
+          "firstCycleLengths": {
+            "4": 184,
+            "6": 12,
+            "8": 18,
+            "10": 3,
+            "12": 3,
+            "14": 2,
+            "44": 1
+          },
+          "meanActions": 15.038
+        },
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": false,
+          "repetition": 3,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 467,
+            "blue win": 504,
+            "Position repeated": 25,
+            "No available move": 4
+          },
+          "repeatedGames": 244,
+          "firstCycleLengths": {
+            "4": 208,
+            "6": 16,
+            "8": 11,
+            "10": 3,
+            "12": 4,
+            "14": 1,
+            "18": 1
+          },
+          "meanActions": 17.661
+        },
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": false,
+          "repetition": null,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 462,
+            "blue win": 534,
+            "Movement limit reached": 1,
+            "No available move": 3
+          },
+          "repeatedGames": 251,
+          "firstCycleLengths": {
+            "4": 213,
+            "6": 13,
+            "8": 13,
+            "10": 4,
+            "12": 5,
+            "14": 3
+          },
+          "meanActions": 18.556
+        }
+      ],
+      "ai": {
+        "seed": 2042,
+        "eligibility": "states with differently valued legal moves; one representative per D4 orbit; shortest-path engine history",
+        "symmetryDistinctPool": 577,
+        "ids": [
+          931,
+          3982,
+          938,
+          3593,
+          2296,
+          949,
+          2304,
+          5434,
+          1078,
+          3830,
+          73,
+          2242,
+          5547,
+          983,
+          2302,
+          1967,
+          5561,
+          1998,
+          5430,
+          5536,
+          4950,
+          743,
+          5462,
+          5673,
+          5627,
+          5691,
+          1085,
+          1068,
+          893,
+          3842,
+          1990,
+          1044,
+          2343,
+          3621,
+          2174,
+          5604,
+          3978,
+          5456,
+          1970,
+          959,
+          261,
+          941,
+          1075,
+          3959,
+          1014,
+          5360,
+          2277,
+          3761
+        ],
+        "rows": [
+          {
+            "difficulty": "easy",
+            "preserving": 27,
+            "sample": 48,
+            "meanNodes": 4.458333333333333,
+            "meanDepth": 1,
+            "firstMistake": {
+              "id": 931,
+              "board": ". . O\n. X .\nX . O",
+              "turn": "blue",
+              "phase": "placement",
+              "best": 1,
+              "chosen": 0,
+              "action": "F",
+              "path": [
+                "E",
+                "C",
+                "G",
+                "I"
+              ]
+            }
+          },
+          {
+            "difficulty": "normal",
+            "preserving": 43,
+            "sample": 48,
+            "meanNodes": 46.104166666666664,
+            "meanDepth": 2.7083333333333335,
+            "firstMistake": {
+              "id": 931,
+              "board": ". . O\n. X .\nX . O",
+              "turn": "blue",
+              "phase": "placement",
+              "best": 1,
+              "chosen": 0,
+              "action": "F",
+              "path": [
+                "E",
+                "C",
+                "G",
+                "I"
+              ]
+            }
+          },
+          {
+            "difficulty": "hard",
+            "preserving": 48,
+            "sample": 48,
+            "meanNodes": 9117.604166666666,
+            "meanDepth": 6.770833333333333,
+            "firstMistake": null
+          }
+        ]
+      }
+    },
+    {
+      "placementWins": true,
+      "states": 5538,
+      "symmetry": 765,
+      "edges": 21509,
+      "counts": {
+        "total": 5538,
+        "blue": 2038,
+        "gold": 2292,
+        "draw": 1208
+      },
+      "playing": {
+        "total": 4974,
+        "blue": 1770,
+        "gold": 1996,
+        "draw": 1208
+      },
+      "movement": {
+        "total": 2744,
+        "blue": 1100,
+        "gold": 1100,
+        "draw": 544
+      },
+      "root": 1,
+      "distance": 9,
+      "movementBound": 3,
+      "maxDistance": 10,
+      "maxShortestReach": 8,
+      "opening": [
+        {
+          "action": "A",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "B",
+          "value": -1,
+          "distance": 7
+        },
+        {
+          "action": "C",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "D",
+          "value": -1,
+          "distance": 7
+        },
+        {
+          "action": "E",
+          "value": 1,
+          "distance": 8
+        },
+        {
+          "action": "F",
+          "value": -1,
+          "distance": 7
+        },
+        {
+          "action": "G",
+          "value": 0,
+          "distance": -1
+        },
+        {
+          "action": "H",
+          "value": -1,
+          "distance": 7
+        },
+        {
+          "action": "I",
+          "value": 0,
+          "distance": -1
+        }
+      ],
+      "principal": [
+        "E",
+        "A",
+        "F",
+        "D",
+        "G",
+        "C",
+        "E–H",
+        "A–B",
+        "F–I"
+      ],
+      "principalEnd": {
+        "board": ". O O\nO . .\nX X X",
+        "cycle": false
+      },
+      "cyclicComponents": [
+        2744
+      ],
+      "strategy": {
+        "historyExample": {
+          "id": 2350,
+          "board": "X O X\nO X O\n. . .",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "G",
+            "F",
+            "G–H",
+            "D–G",
+            "H–E",
+            "G–D"
+          ],
+          "loop": [
+            "E–H",
+            "D–G",
+            "H–E",
+            "G–D"
+          ],
+          "drawAction": "E–H",
+          "freshWinner": -1
+        },
+        "branching": {
+          "1": 112,
+          "2": 264,
+          "3": 456,
+          "4": 1956,
+          "5": 1548,
+          "6": 540,
+          "7": 88,
+          "8": 9,
+          "9": 1
+        },
+        "differentOutcomes": 3849,
+        "meaningfulSymmetry": 524,
+        "oneBest": 2281,
+        "multipleBest": 2693,
+        "onlyAction": 112,
+        "center": {
+          "toMove": {
+            "states": 888,
+            "toMoveWins": 560,
+            "opponentWins": 184,
+            "draws": 144,
+            "meanMobility": 4.603603603603603
+          },
+          "opponent": {
+            "states": 888,
+            "toMoveWins": 376,
+            "opponentWins": 272,
+            "draws": 240,
+            "meanMobility": 2.7027027027027026
+          },
+          "vacant": {
+            "states": 968,
+            "toMoveWins": 736,
+            "opponentWins": 72,
+            "draws": 160,
+            "meanMobility": 4.735537190082645
+          }
+        },
+        "centerLosingExample": {
+          "id": 2350,
+          "board": "X O X\nO X O\n. . .",
+          "turn": "blue",
+          "path": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "distance": 2
+        },
+        "forks": 64,
+        "forkSymmetry": 8,
+        "forkExample": {
+          "id": 2426,
+          "attacker": "gold",
+          "board": "X O .\nX O X\nO . .",
+          "turn": "blue",
+          "phase": "movement",
+          "threats": [
+            {
+              "action": "B–C",
+              "line": "CEG"
+            },
+            {
+              "action": "G–H",
+              "line": "BEH"
+            }
+          ],
+          "path": [
+            "A",
+            "B",
+            "D",
+            "E",
+            "F",
+            "G"
+          ],
+          "value": -1
+        },
+        "cycleExample": {
+          "start": 3392,
+          "board": ". O X\nX X O\nO . .",
+          "path": [
+            "C",
+            "B",
+            "D",
+            "F",
+            "E",
+            "G"
+          ],
+          "moves": [
+            "E–H",
+            "B–A",
+            "H–E",
+            "A–B"
+          ],
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "winningExit": [
+            "D–A",
+            "G–H",
+            "E–D",
+            "F–E"
+          ]
+        },
+        "cyclicStates": 2744,
+        "cyclicEdges": 9952,
+        "movementRemoteness": {
+          "min": 1,
+          "max": 10
+        },
+        "longestExample": {
+          "id": 2596,
+          "winner": -1,
+          "board": "X X O\nX . .\n. O O",
+          "phase": "movement",
+          "turn": "blue",
+          "distance": 10,
+          "path": [
+            "A",
+            "C",
+            "B",
+            "H",
+            "D",
+            "I"
+          ]
+        }
+      },
+      "caps": [
+        {
+          "moveLimit": 2,
+          "repetition": null,
+          "root": 0,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": -1
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": -1
+            },
+            {
+              "action": "E",
+              "value": 0
+            },
+            {
+              "action": "F",
+              "value": -1
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": -1
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 6910,
+          "clockSymmetry": 948,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 3870
+            },
+            {
+              "moves": 1,
+              "states": 1520
+            },
+            {
+              "moves": 2,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 2,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 3,
+          "repetition": null,
+          "root": 1,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": -1
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": -1
+            },
+            {
+              "action": "E",
+              "value": 1
+            },
+            {
+              "action": "F",
+              "value": -1
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": -1
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 8430,
+          "clockSymmetry": 1152,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 3870
+            },
+            {
+              "moves": 1,
+              "states": 1520
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 3,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 4,
+          "repetition": null,
+          "root": 1,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": -1
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": -1
+            },
+            {
+              "action": "E",
+              "value": 1
+            },
+            {
+              "action": "F",
+              "value": -1
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": -1
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 9950,
+          "clockSymmetry": 1356,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 3870
+            },
+            {
+              "moves": 1,
+              "states": 1520
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 4,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 10,
+          "repetition": null,
+          "root": 1,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": -1
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": -1
+            },
+            {
+              "action": "E",
+              "value": 1
+            },
+            {
+              "action": "F",
+              "value": -1
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": -1
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 19070,
+          "clockSymmetry": 2580,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 3870
+            },
+            {
+              "moves": 1,
+              "states": 1520
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "states": 1520
+            },
+            {
+              "moves": 5,
+              "states": 1520
+            },
+            {
+              "moves": 6,
+              "states": 1520
+            },
+            {
+              "moves": 7,
+              "states": 1520
+            },
+            {
+              "moves": 8,
+              "states": 1520
+            },
+            {
+              "moves": 9,
+              "states": 1520
+            },
+            {
+              "moves": 10,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 10,
+              "states": 148
+            }
+          ]
+        },
+        {
+          "moveLimit": 100,
+          "repetition": null,
+          "root": 1,
+          "opening": [
+            {
+              "action": "A",
+              "value": 0
+            },
+            {
+              "action": "B",
+              "value": -1
+            },
+            {
+              "action": "C",
+              "value": 0
+            },
+            {
+              "action": "D",
+              "value": -1
+            },
+            {
+              "action": "E",
+              "value": 1
+            },
+            {
+              "action": "F",
+              "value": -1
+            },
+            {
+              "action": "G",
+              "value": 0
+            },
+            {
+              "action": "H",
+              "value": -1
+            },
+            {
+              "action": "I",
+              "value": 0
+            }
+          ],
+          "clockStates": 155870,
+          "clockSymmetry": 20940,
+          "layers": [
+            {
+              "moves": 0,
+              "states": 3870
+            },
+            {
+              "moves": 1,
+              "states": 1520
+            },
+            {
+              "moves": 2,
+              "states": 1520
+            },
+            {
+              "moves": 3,
+              "states": 1520
+            },
+            {
+              "moves": 4,
+              "states": 1520
+            },
+            {
+              "moves": 5,
+              "states": 1520
+            },
+            {
+              "moves": 6,
+              "states": 1520
+            },
+            {
+              "moves": 7,
+              "states": 1520
+            },
+            {
+              "moves": 8,
+              "states": 1520
+            },
+            {
+              "moves": 9,
+              "states": 1520
+            },
+            {
+              "moves": 10,
+              "states": 1520
+            },
+            {
+              "moves": 11,
+              "states": 1520
+            },
+            {
+              "moves": 12,
+              "states": 1520
+            },
+            {
+              "moves": 13,
+              "states": 1520
+            },
+            {
+              "moves": 14,
+              "states": 1520
+            },
+            {
+              "moves": 15,
+              "states": 1520
+            },
+            {
+              "moves": 16,
+              "states": 1520
+            },
+            {
+              "moves": 17,
+              "states": 1520
+            },
+            {
+              "moves": 18,
+              "states": 1520
+            },
+            {
+              "moves": 19,
+              "states": 1520
+            },
+            {
+              "moves": 20,
+              "states": 1520
+            },
+            {
+              "moves": 21,
+              "states": 1520
+            },
+            {
+              "moves": 22,
+              "states": 1520
+            },
+            {
+              "moves": 23,
+              "states": 1520
+            },
+            {
+              "moves": 24,
+              "states": 1520
+            },
+            {
+              "moves": 25,
+              "states": 1520
+            },
+            {
+              "moves": 26,
+              "states": 1520
+            },
+            {
+              "moves": 27,
+              "states": 1520
+            },
+            {
+              "moves": 28,
+              "states": 1520
+            },
+            {
+              "moves": 29,
+              "states": 1520
+            },
+            {
+              "moves": 30,
+              "states": 1520
+            },
+            {
+              "moves": 31,
+              "states": 1520
+            },
+            {
+              "moves": 32,
+              "states": 1520
+            },
+            {
+              "moves": 33,
+              "states": 1520
+            },
+            {
+              "moves": 34,
+              "states": 1520
+            },
+            {
+              "moves": 35,
+              "states": 1520
+            },
+            {
+              "moves": 36,
+              "states": 1520
+            },
+            {
+              "moves": 37,
+              "states": 1520
+            },
+            {
+              "moves": 38,
+              "states": 1520
+            },
+            {
+              "moves": 39,
+              "states": 1520
+            },
+            {
+              "moves": 40,
+              "states": 1520
+            },
+            {
+              "moves": 41,
+              "states": 1520
+            },
+            {
+              "moves": 42,
+              "states": 1520
+            },
+            {
+              "moves": 43,
+              "states": 1520
+            },
+            {
+              "moves": 44,
+              "states": 1520
+            },
+            {
+              "moves": 45,
+              "states": 1520
+            },
+            {
+              "moves": 46,
+              "states": 1520
+            },
+            {
+              "moves": 47,
+              "states": 1520
+            },
+            {
+              "moves": 48,
+              "states": 1520
+            },
+            {
+              "moves": 49,
+              "states": 1520
+            },
+            {
+              "moves": 50,
+              "states": 1520
+            },
+            {
+              "moves": 51,
+              "states": 1520
+            },
+            {
+              "moves": 52,
+              "states": 1520
+            },
+            {
+              "moves": 53,
+              "states": 1520
+            },
+            {
+              "moves": 54,
+              "states": 1520
+            },
+            {
+              "moves": 55,
+              "states": 1520
+            },
+            {
+              "moves": 56,
+              "states": 1520
+            },
+            {
+              "moves": 57,
+              "states": 1520
+            },
+            {
+              "moves": 58,
+              "states": 1520
+            },
+            {
+              "moves": 59,
+              "states": 1520
+            },
+            {
+              "moves": 60,
+              "states": 1520
+            },
+            {
+              "moves": 61,
+              "states": 1520
+            },
+            {
+              "moves": 62,
+              "states": 1520
+            },
+            {
+              "moves": 63,
+              "states": 1520
+            },
+            {
+              "moves": 64,
+              "states": 1520
+            },
+            {
+              "moves": 65,
+              "states": 1520
+            },
+            {
+              "moves": 66,
+              "states": 1520
+            },
+            {
+              "moves": 67,
+              "states": 1520
+            },
+            {
+              "moves": 68,
+              "states": 1520
+            },
+            {
+              "moves": 69,
+              "states": 1520
+            },
+            {
+              "moves": 70,
+              "states": 1520
+            },
+            {
+              "moves": 71,
+              "states": 1520
+            },
+            {
+              "moves": 72,
+              "states": 1520
+            },
+            {
+              "moves": 73,
+              "states": 1520
+            },
+            {
+              "moves": 74,
+              "states": 1520
+            },
+            {
+              "moves": 75,
+              "states": 1520
+            },
+            {
+              "moves": 76,
+              "states": 1520
+            },
+            {
+              "moves": 77,
+              "states": 1520
+            },
+            {
+              "moves": 78,
+              "states": 1520
+            },
+            {
+              "moves": 79,
+              "states": 1520
+            },
+            {
+              "moves": 80,
+              "states": 1520
+            },
+            {
+              "moves": 81,
+              "states": 1520
+            },
+            {
+              "moves": 82,
+              "states": 1520
+            },
+            {
+              "moves": 83,
+              "states": 1520
+            },
+            {
+              "moves": 84,
+              "states": 1520
+            },
+            {
+              "moves": 85,
+              "states": 1520
+            },
+            {
+              "moves": 86,
+              "states": 1520
+            },
+            {
+              "moves": 87,
+              "states": 1520
+            },
+            {
+              "moves": 88,
+              "states": 1520
+            },
+            {
+              "moves": 89,
+              "states": 1520
+            },
+            {
+              "moves": 90,
+              "states": 1520
+            },
+            {
+              "moves": 91,
+              "states": 1520
+            },
+            {
+              "moves": 92,
+              "states": 1520
+            },
+            {
+              "moves": 93,
+              "states": 1520
+            },
+            {
+              "moves": 94,
+              "states": 1520
+            },
+            {
+              "moves": 95,
+              "states": 1520
+            },
+            {
+              "moves": 96,
+              "states": 1520
+            },
+            {
+              "moves": 97,
+              "states": 1520
+            },
+            {
+              "moves": 98,
+              "states": 1520
+            },
+            {
+              "moves": 99,
+              "states": 1520
+            },
+            {
+              "moves": 100,
+              "boundaryDraws": 1372
+            },
+            {
+              "moves": 100,
+              "states": 148
+            }
+          ]
+        }
+      ],
+      "historyRoots": [
+        {
+          "repetition": 2,
+          "moveLimit": null,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 2,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 3,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 4,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 10,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 2,
+          "moveLimit": 100,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": null,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 2,
+          "root": 0,
+          "basis": "non-losing strategies survive added automatic draws"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 3,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 4,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 10,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        },
+        {
+          "repetition": 3,
+          "moveLimit": 100,
+          "root": 1,
+          "basis": "strictly rank-decreasing winning strategy within movement budget"
+        }
+      ],
+      "samples": [
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": true,
+          "repetition": 2,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 356,
+            "blue win": 437,
+            "Position repeated": 207
+          },
+          "repeatedGames": 207,
+          "firstCycleLengths": {
+            "4": 177,
+            "6": 10,
+            "8": 12,
+            "10": 1,
+            "12": 1,
+            "14": 2,
+            "16": 2,
+            "18": 1,
+            "30": 1
+          },
+          "meanActions": 13.122
+        },
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": true,
+          "repetition": 3,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 464,
+            "blue win": 521,
+            "Position repeated": 15
+          },
+          "repeatedGames": 185,
+          "firstCycleLengths": {
+            "4": 155,
+            "6": 12,
+            "8": 8,
+            "10": 3,
+            "12": 2,
+            "14": 1,
+            "18": 3,
+            "30": 1
+          },
+          "meanActions": 15.137
+        },
+        {
+          "seed": "0x504f5454",
+          "policy": "uniform random legal actions",
+          "games": 1000,
+          "placementWins": true,
+          "repetition": null,
+          "moveLimit": 100,
+          "outcomes": {
+            "gold win": 469,
+            "blue win": 531
+          },
+          "repeatedGames": 183,
+          "firstCycleLengths": {
+            "4": 157,
+            "6": 11,
+            "8": 8,
+            "10": 3,
+            "12": 1,
+            "14": 1,
+            "18": 2
+          },
+          "meanActions": 15.131
+        }
+      ],
+      "ai": {
+        "seed": 2042,
+        "eligibility": "states with differently valued legal moves; one representative per D4 orbit; shortest-path engine history",
+        "symmetryDistinctPool": 524,
+        "ids": [
+          3288,
+          2318,
+          3744,
+          965,
+          2298,
+          1977,
+          5042,
+          311,
+          68,
+          2299,
+          5308,
+          3714,
+          3733,
+          3635,
+          4615,
+          5268,
+          244,
+          3795,
+          2306,
+          329,
+          3619,
+          5177,
+          1047,
+          73,
+          3693,
+          3633,
+          1985,
+          2155,
+          4722,
+          5165,
+          1997,
+          5367,
+          1984,
+          3780,
+          2242,
+          4970,
+          5189,
+          956,
+          983,
+          2153,
+          3776,
+          2263,
+          3367,
+          2261,
+          2203,
+          1918,
+          3441,
+          5389
+        ],
+        "rows": [
+          {
+            "difficulty": "easy",
+            "preserving": 39,
+            "sample": 48,
+            "meanNodes": 4.666666666666667,
+            "meanDepth": 1,
+            "firstMistake": {
+              "id": 2318,
+              "board": ". . O\nO . X\nX . X",
+              "turn": "gold",
+              "phase": "placement",
+              "best": -1,
+              "chosen": 1,
+              "action": "A",
+              "path": [
+                "F",
+                "C",
+                "G",
+                "D",
+                "I"
+              ]
+            }
+          },
+          {
+            "difficulty": "normal",
+            "preserving": 46,
+            "sample": 48,
+            "meanNodes": 27.791666666666668,
+            "meanDepth": 2.0416666666666665,
+            "firstMistake": {
+              "id": 68,
+              "board": ". . O\n. . .\n. X .",
+              "turn": "blue",
+              "phase": "placement",
+              "best": 1,
+              "chosen": -1,
+              "action": "I",
+              "path": [
+                "H",
+                "C"
+              ]
+            }
+          },
+          {
+            "difficulty": "hard",
+            "preserving": 48,
+            "sample": 48,
+            "meanNodes": 4850.583333333333,
+            "meanDepth": 4.375,
+            "firstMistake": null
+          }
+        ]
+      }
+    }
+  ]
+}
