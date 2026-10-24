@@ -937,6 +937,96 @@ input[type="checkbox"] {
     font-size: 24px;
   }
 }
+/* Setup scale follows the screen, independently of the playing layout. */
+.selection.setup {
+  max-width: 1440px;
+  padding: 28px clamp(24px, 4vw, 64px);
+}
+.setup .back-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 12px 22px;
+  font-size: 18px;
+  background: var(--panel);
+  border: 1px solid var(--accent);
+}
+.back-menu > span:first-child { font-size: 28px; line-height: 1; }
+.setup .back-menu:hover { background: var(--surface); border-color: var(--text); }
+.setup .setup-content {
+  max-width: 1100px;
+  margin: clamp(28px, 3vw, 52px) auto 36px;
+}
+.setup-content > h1 { font-size: clamp(56px, 5vw, 92px); }
+.setup-content > .eyebrow { font-size: 12px; margin-bottom: 16px; }
+.setup-content > p { font-size: 18px; margin: 18px 0 28px; }
+.setup .board-options, .setup .difficulties { margin: 28px 0; }
+.setup legend { font-size: 19px; margin-bottom: 16px; }
+.setup .size-grid { gap: 20px; }
+.setup .board-option {
+  min-height: clamp(180px, 14vw, 240px);
+  padding: 22px 16px;
+  gap: 10px;
+  border-width: 2px;
+}
+.setup .grid-symbol { width: clamp(56px, 4.2vw, 84px); gap: 6px; margin-bottom: 10px; }
+.setup .board-option strong { font-size: clamp(30px, 2.5vw, 44px); }
+.setup .board-option small { font-size: 15px; }
+.board-target { font-size: 15px; font-weight: 600; color: var(--text); }
+.setup .board-option.chosen, .setup .difficulty.chosen {
+  border-color: var(--red);
+  box-shadow: inset 0 0 0 1px var(--red), 0 4px 0 color-mix(in srgb, var(--red) 35%, var(--panel));
+}
+.setup .board-option:hover, .setup .difficulty:hover { border-color: var(--accent); }
+.setup .board-option.chosen:hover, .setup .difficulty.chosen:hover { border-color: var(--red); }
+.setup .board-summary { font-size: 17px; gap: 6px; margin-top: 18px; }
+.setup .board-summary span { font-size: 15px; }
+.setup .difficulties { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.setup .difficulty { min-height: 104px; padding: 20px; flex-direction: column; gap: 10px; justify-content: center; }
+.setup .difficulty strong { font-size: 22px; }
+.setup .difficulty > span { font-size: 15px; line-height: 1.5; }
+.setup .primary { min-height: 64px; font-size: 20px; padding: 16px 24px; }
+.setup .local-seats { font-size: 17px; margin: 28px 0; }
+.setup .join-divider { font-size: 13px; margin: 32px 0 22px; }
+.setup label { font-size: 17px; }
+.setup .join-row { gap: 16px; }
+.setup .join-row input, .setup .join-row button { min-height: 56px; font-size: 18px; }
+.setup .rule-note { font-size: 15px !important; }
+.setup .edition { font-size: 12px; }
+@media (min-width: 901px) and (max-height: 900px) {
+  .selection.setup { padding-top: 20px; }
+  .setup .setup-content { margin-top: 24px; }
+  .setup .board-options, .setup .difficulties { margin: 22px 0; }
+  .setup .board-option { min-height: 180px; padding: 16px; gap: 8px; }
+  .setup .grid-symbol { width: 54px; margin-bottom: 4px; }
+  .setup .difficulty { min-height: 92px; padding: 16px 20px; }
+}
+@media (max-width: 700px) {
+  .selection.setup { padding: 16px 20px; }
+  .setup .back-menu { min-height: 48px; font-size: 16px; padding: 10px 16px; gap: 10px; }
+  .setup .edition { font-size: 10px; }
+  .setup .setup-content { margin: 28px auto; }
+  .setup-content > h1 { font-size: clamp(42px, 11vw, 58px); }
+  .setup-content > .eyebrow { font-size: 10px; }
+  .setup-content > p { font-size: 16px; margin: 16px 0 24px; }
+  .setup legend { font-size: 17px; }
+  .setup .size-grid { grid-template-columns: 1fr; gap: 12px; }
+  .setup .board-option { display: grid; grid-template-columns: 52px 1fr; column-gap: 18px; row-gap: 5px; text-align: left; min-height: 112px; padding: 16px 20px; justify-items: start; }
+  .setup .grid-symbol { grid-column: 1; grid-row: 1 / 4; width: 48px; margin: 0; gap: 5px; }
+  .setup .board-option strong, .setup .board-option small, .setup .board-target { grid-column: 2; }
+  .setup .board-option strong { font-size: 30px; }
+  .setup .board-option small, .setup .board-target { font-size: 14px; }
+  .setup .board-summary { font-size: 16px; }
+  .setup .board-summary span { font-size: 14px; }
+  .setup .difficulties { grid-template-columns: 1fr; gap: 12px; }
+  .setup .difficulty { min-height: 84px; padding: 16px 20px; gap: 6px; }
+  .setup .difficulty strong { font-size: 20px; }
+  .setup .primary { min-height: 60px; font-size: 18px; }
+  .setup .local-seats { font-size: 14px; flex-direction: column; gap: 14px; }
+  .setup .join-row { flex-wrap: wrap; gap: 12px; }
+  .setup .join-row button { width: 100%; }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *:before,

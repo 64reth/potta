@@ -152,7 +152,7 @@ function on(id: string, fn: () => void) {
 }
 function setup(title: string, content: string) {
   screen = "setup";
-  app.innerHTML = `<main class="selection setup"><header><button id="back" class="quiet">← Main menu</button><span class="edition">POTTA / 004</span></header><section class="setup-content"><div class="eyebrow">MAKE YOUR NEXT MOVE</div><h1>${title}</h1>${content}<p id="setup-error" role="status"></p></section></main>`;
+  app.innerHTML = `<main class="selection setup"><header><button id="back" class="back-menu"><span aria-hidden="true">←</span><span>Main Menu</span></button><span class="edition">POTTA / 004</span></header><section class="setup-content"><div class="eyebrow">MAKE YOUR NEXT MOVE</div><h1>${title}</h1>${content}<p id="setup-error" role="status"></p></section></main>`;
   on("back", menu);
 }
 function boardOptions() {
@@ -162,7 +162,7 @@ function boardOptions() {
   )
     .map((size) => {
       const board = boardGeometry(size);
-      return `<button class="board-option ${size === selectedSize ? "chosen" : ""}" data-size="${size}" aria-pressed="${size === selectedSize}" aria-label="${board.name} ${size} by ${size}"><span class="grid-symbol" style="--grid:${size}">${Array.from({ length: size * size }, () => "<i></i>").join("")}</span><strong>${board.name}</strong><small>${size} × ${size}</small></button>`;
+      return `<button class="board-option ${size === selectedSize ? "chosen" : ""}" data-size="${size}" aria-pressed="${size === selectedSize}" aria-label="${board.name} ${size} by ${size}"><span class="grid-symbol" style="--grid:${size}">${Array.from({ length: size * size }, () => "<i></i>").join("")}</span><strong>${board.name}</strong><small>${size} × ${size} · ${board.pieces} stones each</small><span class="board-target">${board.target} aligned to win</span></button>`;
     })
     .join(
       "",
