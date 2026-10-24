@@ -7,7 +7,7 @@ const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const point=n=>page.locator(`[data-node="${n}"]`);
 const click=async n=>{await point(n).click({force:true});};
 try{
- await page.goto(process.env.BASE_URL||'http://127.0.0.1:5173');await fs.mkdir('artifacts',{recursive:true});
+ await page.goto(process.env.BASE_URL||'http://127.0.0.1:5173');await fs.mkdir('artifacts',{recursive:true});await page.getByRole('button',{name:/Play Local/}).click();
  assert.match(await page.locator('#status-title').innerText(),/Azure/);
  await click('A');assert.match(await point('A').getAttribute('aria-label'),/Azure piece/);assert.match(await page.locator('#status-title').innerText(),/Ochre/);
  await click('A');assert.match(await page.locator('#status-title').innerText(),/Ochre/);

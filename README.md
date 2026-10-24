@@ -1,51 +1,56 @@
 # POTTA · Heritage Games 004
 
-A standalone local two-player adaptation of the Barbadian board game. Build 001 establishes the nine-point board, deterministic engine and complete placement-to-movement player loop. No backend or deployment is required.
+A standalone digital adaptation of the Barbadian board game. Build 002 adds Solo, Local and private Online play around the original deterministic engine and provisional rules. Nothing has been deployed.
 
 ## Run locally
 
-Requires Node.js 22.12+ and npm.
+Requires Node.js **22.18+** and npm.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173**. Azure starts. Alternate placing three pieces each, then select a piece and a highlighted neighbouring empty point. Make a row, column or full diagonal during movement to win. Use **Rematch** after a result or **New game** during play.
+Open the printed local URL (normally **http://127.0.0.1:5173**). This one command runs the frontend and local Cloudflare Workers/Durable Objects runtime. No Cloudflare login, account, remote binding or deployment is needed. Room storage persists in the ignored `.local/online/` directory.
 
-The active checkout is `/Users/garethwallen/Projects/potta` on this machine. On Windows, clone into `C:\Projects\Potta` and use the same npm commands.
+- **Play Solo:** choose Easy, Normal or Hard. You are Azure; Ochre is the computer.
+- **Play Local:** two people share the device. Azure starts.
+- **Play Online:** Create Game, then Share invitation or give a friend the six-character code. Join Game assigns the other seat. For local testing use two browser profiles or isolated browser contexts; two tabs in the same browser share a player identity.
+- **Resume Game:** return from the main menu. Online reloads restore automatically using the room URL and this browser's saved identity. An interruption never forfeits a seat.
+- **Rematch:** available after a result. Online rematches start when both players request one.
+
+Place three pieces each in alternating turns, then move one owned piece to a connected empty point. Make a row, column or full diagonal during movement to win. Placement wins and draw policies remain explicitly provisional; see [rules](docs/RULES.md).
+
+## Validate and preview
 
 ```sh
-npm test           # deterministic engine / replay tests
-npm run check      # TypeScript
-npm run build      # production static output in dist/
-npm run preview    # inspect the production build
+npm test                 # engine, replay, AI and room protocol tests
+npm run check            # frontend and Worker TypeScript
+npm run build            # client + Worker bundles; does not deploy
+npm run preview          # local production-build preview
 ```
 
-Browser verification requires a running dev server and a Playwright browser:
+With the dev server running and Playwright Chromium installed (`npx playwright install chromium`):
 
 ```sh
-npx playwright install chromium
-npm run test:browser
-npm run test:layout  # viewport sizing, alignment and input visibility
+npm run test:browser     # preserved local player loop
+npm run test:layout      # nine desktop/tablet/phone sizes and target alignment
+npm run test:modes       # AI levels, solo result, two-browser online and recovery
+npm run test:runtime     # actual Durable Object authority, auth and deduplication
 ```
 
-Alternatively set `CHROMIUM_PATH` to a locally installed Chrome/Chromium executable. Browser checks save ignored screenshots under `artifacts/`.
+Use `BASE_URL` for a different port and `CHROMIUM_PATH` for an existing Chrome executable. Screenshots go to ignored `artifacts/`. To verify process-restart recovery, run `test:runtime`, stop/restart the same dev server, then run `node tests/runtime.mjs --recover` with the same `BASE_URL`.
 
-## Structure
+## Architecture
 
-- `src/engine/geometry.ts`: positions, the sixteen undirected edges and derived adjacency.
-- `src/engine/lines.ts`: the eight winning combinations.
-- `src/engine/game.ts`: pure initialisation, legal actions, transitions, configurable rules and outcomes.
-- `src/engine/session.ts`: detached snapshots, action validation, events, versioned recording and replay.
-- `src/main.ts`, `src/ui/style.css`: accessible board controls, scalable SVG connections, animated pieces and responsive presentation. No rule computation lives in the renderer.
+- `src/engine/`: unchanged board graph, winning lines, rules, state machine, session events and versioned replay.
+- `src/ai/`: deterministic search and a dedicated computation worker.
+- `src/ui/board.ts`: shared renderer and controls for all three modes.
+- `src/main.ts`: mode selection and session coordination.
+- `src/online/`: protocol, saved identities and retrying client.
+- `server/`: authoritative room commands and one SQLite-backed Durable Object per room.
+- `cloudflare.config.ts`, `vite.config.ts`: typed Cloudflare configuration and local/build integration. Development and production have distinct Worker names; local resources never target remote bindings.
 
-See [board and rule decisions](docs/RULES.md), [architecture provenance](docs/ARCHITECTURE.md) and [verification](docs/VERIFICATION.md).
+Production output is `dist/client/` plus `dist/potta_online/`. Online requires the Worker and its Durable Object binding; uploading only the static client is insufficient. Deployment remains a separate, explicitly authorised step.
 
-Build 001 intentionally has no AI, tutorial flow, online service or saved-session UI. The engine and recordings preserve clean boundaries for those later additions. Nothing has been deployed.
-
-## Build 001A · board-first layout
-
-The playing surface now uses viewport height on desktop and 94% of screen width on phones, with compact turn information and controls below it. The SVG viewport is cropped to `50 50 500 500`; the renderer projects the unchanged graph into that viewport for both pieces and interaction targets. The game engine, rules and replay format are unchanged.
-
-Responsive verification covers 320×568, 375×667, 390×844, 768×1024, 1366×768, 1440×900 and 1920×1080. Set `BASE_URL` when reviewing a server on a different port (default: `http://127.0.0.1:5173`).
+See [online/recovery design](docs/ONLINE.md), [AI design](docs/AI.md), [architecture provenance](docs/ARCHITECTURE.md) and [verification](docs/VERIFICATION.md). There is no matchmaking, account system or tutorial in Build 002.

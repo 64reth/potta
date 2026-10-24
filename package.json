@@ -1,25 +1,36 @@
 {
   "name": "potta",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && tsc -p tsconfig.server.json",
     "test": "node --import tsx --test tests/*.test.ts",
     "build": "npm run check && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "node tests/browser.mjs",
-    "test:layout": "node tests/layout.mjs"
+    "test:layout": "node tests/layout.mjs",
+    "dev:online": "cf dev",
+    "test:modes": "node tests/modes.mjs",
+    "test:runtime": "node tests/runtime.mjs"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.65.0",
+    "@cloudflare/workers-types": "^5.20261024.1",
     "@playwright/test": "^1.56.0",
     "@types/node": "^26.6.5",
+    "cf": "^0.15.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0",
     "vite": "^7.1.0"
   },
   "engines": {
-    "node": ">=22.12"
+    "node": ">=22.18"
+  },
+  "overrides": {
+    "undici": "^7.30.1",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.6"
   }
 }

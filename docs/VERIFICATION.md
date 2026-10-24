@@ -19,3 +19,16 @@ Browser interactions were automated; screenshots were visually inspected. Physic
 - Motion transitions and reduced-motion support are preserved. Screenshots and interaction checks use reduced motion for stable inspection. No deployment.
 
 Reproduce with a running dev server: `npm run test:browser` and `npm run test:layout`. Both accept `BASE_URL` and `CHROMIUM_PATH`.
+
+## Build 002 · game modes and full-screen play
+
+- Fifteen engine, replay, AI and room-protocol tests pass, including canonical network action recordings. Original engine files and their eight tests are unchanged.
+- Frontend and Worker TypeScript checks pass. Vite builds both client assets and the production Worker/SQLite namespace configuration. The compiled local production preview also passed the all-mode browser flow. Full dependency audit reported zero vulnerabilities after compatible patched transitive overrides.
+- Preserved local browser loop passes: placement, invalid actions, graph-constrained movement, turn ownership, all result controls, blocked draw, instructions and keyboard operation.
+- Mode browser review exercises Easy, Normal and Hard, a solo match to completion, solo rematch, private create/join/share, invalid room-code guidance, a full room, two-browser synchronisation, online win and mutually confirmed rematch.
+- Recovery review drops an acknowledgement **after** the server accepts a move, then reloads and retries the persisted command: exactly one piece is placed. Both browsers restore their assigned identities and correct turn after refresh. Repeated sync responses preserve the winning-line DOM element and completed-match guidance instead of restarting the animation. Simulated network loss reconnects without terminating the match. Main menu → Resume Game and invitation changes in an already-open tab are covered.
+- Actual workerd API tests reject unauthorised, stale and illegal actions, conflicting duplicate payloads, unrelated origins and oversized bodies. Five concurrent copies of one command produce one transition. A real dev-runtime stop/restart preserves both credentials' seats, board, revision and player to act.
+- Layout checks cover 1440×900, 1920×1080, 1366×768, 1024×768, 768×1024, 844×390, 390×844, 375×667 and 320×568. Boards remain square, fully visible and free of horizontal overflow. All nine targets align with SVG points within 0.5 px and receive pointer input. Phone boards measure 312–382 px; pieces 44–53 px; touch targets 50–61 px. A 1440×900 desktop now has an 838 px board canvas (Build 001A: 610 px).
+- Visually inspected desktop/mobile mode selection, desktop/mobile online movement states, tablet portrait and small-phone play. Fixed portrait auto-margin gaps, misleading online turn tags, rematch waiting guidance and same-tab invitation routing. The desktop information rail now flows and scrolls separately on short screens.
+
+Interactions were automated through actual player controls; screenshots were visually inspected. Physical-device touch and real internet/production Cloudflare operation remain unverified. Online was tested with isolated browser contexts and the local Workers runtime. Hard uses bounded deterministic search rather than a proven exhaustive solution. Provisional placement/draw rules remain unchanged. No deployment or changes to LUDI, Warri or the Studio Kit.

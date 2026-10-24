@@ -3,3 +3,9 @@ dist/
 .env*
 .DS_Store
 artifacts/*.png
+
+.local/
+.cloudflare/
+.wrangler/
+
+.dev.vars*
