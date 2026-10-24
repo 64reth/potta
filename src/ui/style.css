@@ -18,15 +18,33 @@
 }
 :root {
   font-family: "DM Sans", sans-serif;
-  color: #f7f3f0;
-  background: #71373b;
   font-synthesis: none;
   color-scheme: dark;
-  --red: #f0524d;
-  --green: #4aaf73;
-  --muted: #e2d4cf;
-  --line: #ffffff22;
   --display: "Barlow Condensed", Impact, sans-serif;
+  /* OXBLOOD: welcome, mode selection and setup. */
+  --background: #30191E;
+  --surface: #76333B;
+  --accent: #CB8F89;
+  --red: #FA655B;
+  --green: #42B879;
+  --text: #FFF1E9;
+  --panel: #20171A;
+  --board: #9F373B;
+  --connections: #E3A8A0;
+  --muted: color-mix(in srgb, var(--text) 80%, var(--background));
+  --line: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: var(--text);
+  background: var(--background);
+}
+:root:has(.play-screen) {
+  /* JOUVERT: gameplay, waiting room, results and in-game dialogs. */
+  --background: #183B30;
+  --surface: #9F373B;
+  --accent: #E3A8A0;
+  --red: #FF6657;
+  --green: #50D58B;
+  --text: #FFF2DE;
+  --panel: #111F1A;
 }
 * {
   box-sizing: border-box;
@@ -34,8 +52,8 @@
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(ellipse at 15% 10%, #92494a66, transparent 70%), #71373b;
+  background: var(--background);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 button,
 input {
@@ -51,14 +69,14 @@ button {
   padding: 11px 18px;
   font-size: 14px;
   font-weight: 600;
-  background: #ffffff04;
+  background: var(--panel);
   transition:
     background 0.16s,
     transform 0.16s,
     border-color 0.16s;
 }
 button:hover {
-  background: #ffffff0d;
+  background: color-mix(in srgb, var(--panel) 80%, var(--accent));
 }
 button:active {
   transform: translateY(2px);
@@ -69,7 +87,7 @@ button:disabled {
 }
 button:focus-visible,
 input:focus-visible {
-  outline: 3px solid #ffb2a5;
+  outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
 [hidden] {
@@ -109,7 +127,7 @@ p {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: #ffd6c7;
+  color: var(--accent);
 }
 .edition {
   font-size: 10px;
@@ -117,17 +135,17 @@ p {
 }
 .primary {
   background: var(--red);
-  color: #fff;
+  color: var(--panel);
   border-color: var(--red);
-  box-shadow: 0 4px 0 #8e2928;
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--red) 45%, var(--panel));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 .primary:hover {
-  background: #ff6d60;
-  border-color: #ff6d60;
+  background: color-mix(in srgb, var(--red) 85%, var(--text));
+  border-color: color-mix(in srgb, var(--red) 85%, var(--text));
 }
 .quiet {
   border-color: transparent;
@@ -139,8 +157,8 @@ p {
 .pill {
   font-size: 10px;
   letter-spacing: 1.1px;
-  color: #d2dfcf;
-  border: 1px solid #ffffff25;
+  color: var(--text);
+  border: 1px solid var(--line);
   border-radius: 30px;
   padding: 6px 10px;
   white-space: nowrap;
@@ -188,10 +206,10 @@ p {
 .hero-logo {
   font-size: clamp(110px, 14vw, 210px);
   letter-spacing: -4px;
-  color: #f7f3f0;
+  color: var(--text);
   line-height: 0.88;
   margin: 22px 0 26px;
-  text-shadow: 4px 5px #070c09;
+  text-shadow: 4px 5px var(--panel);
 }
 .hero-logo span {
   font-size: 35px;
@@ -220,18 +238,18 @@ p {
   gap: 22px;
   text-align: left;
   padding: 25px 26px;
-  background: linear-gradient(135deg, #202a24, #141917);
-  border: 1px solid #73947d55;
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-radius: 8px;
   min-height: 120px;
 }
 .mode-card:hover {
   border-color: var(--red);
-  background: #2b3025;
+  background: color-mix(in srgb, var(--surface) 80%, var(--accent));
 }
 .mode-number {
   font: 800 58px/1 var(--display);
-  color: #f0524d;
+  color: var(--red);
 }
 .mode-copy {
   display: grid;
@@ -244,7 +262,7 @@ p {
 }
 .mode-copy > span {
   font-size: 12px;
-  color: #bdcabc;
+  color: var(--muted);
   font-weight: 400;
   line-height: 1.5;
 }
@@ -264,7 +282,7 @@ p {
   display: flex;
   justify-content: space-between;
   gap: 18px;
-  color: #e2d4cf;
+  color: var(--muted);
   font-size: 9px;
   letter-spacing: 1px;
   border-top: 1px solid var(--line);
@@ -292,7 +310,7 @@ p {
 legend {
   font-size: 12px;
   font-weight: 600;
-  color: #dbe7d9;
+  color: var(--text);
   margin: 0 0 12px;
   padding: 0;
 }
@@ -308,12 +326,12 @@ legend {
   justify-content: center;
   gap: 8px;
   padding: 18px 8px;
-  background: #1b3022;
+  background: var(--surface);
 }
 .board-option.chosen,
 .difficulty.chosen {
   border-color: var(--red);
-  background: #251a1b;
+  background: var(--panel);
   box-shadow: inset 0 0 0 1px var(--red);
 }
 .board-option strong {
@@ -333,7 +351,7 @@ legend {
   margin-bottom: 5px;
 }
 .grid-symbol i {
-  background: #65836e;
+  background: var(--accent);
   border-radius: 50%;
 }
 .chosen .grid-symbol i {
@@ -372,7 +390,7 @@ legend {
   gap: 12px;
   margin: 26px 0 32px;
   font-size: 13px;
-  color: #d6dfd4;
+  color: var(--text);
 }
 .seat {
   width: 10px;
@@ -405,9 +423,9 @@ input:not([type="checkbox"]) {
   min-width: 0;
   width: 100%;
   min-height: 44px;
-  background: #0c1810;
-  color: #fff;
-  border: 1px solid #64866d;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--accent);
   border-radius: 5px;
   padding: 12px;
   font: inherit;
@@ -421,14 +439,14 @@ input:not([type="checkbox"]) {
 }
 .rule-note {
   font-size: 11px !important;
-  color: #a4b8a5 !important;
+  color: var(--muted) !important;
   line-height: 1.7;
   border-top: 1px solid var(--line);
   padding-top: 15px;
   margin-top: 18px;
 }
 .setup-content #setup-error {
-  color: #ffb3a8;
+  color: var(--accent);
 }
 /* The stage receives the space left after a readable HUD. Its square child
    fits both stage dimensions, rather than deriving its size from the viewport. */
@@ -464,9 +482,12 @@ input:not([type="checkbox"]) {
   position: relative;
   width: min(100cqw, 100cqh);
   aspect-ratio: 1;
-  background: #0e1110;
+  background: var(--board);
   border-radius: 12px;
-  box-shadow: 0 12px 32px #290d1730;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--accent) 45%, transparent),
+    inset 0 -8px 22px color-mix(in srgb, var(--panel) 18%, transparent),
+    0 6px 18px color-mix(in srgb, var(--panel) 18%, transparent);
 }
 .board,
 .node-layer,
@@ -481,13 +502,13 @@ input:not([type="checkbox"]) {
   border-radius: inherit;
 }
 .connections line {
-  stroke: #71877a;
+  stroke: var(--connections);
   stroke-width: 2;
-  opacity: 0.85;
+  opacity: 1;
 }
 .sockets circle {
-  fill: #0e1110;
-  stroke: #afc7b3;
+  fill: var(--board);
+  stroke: var(--connections);
   stroke-width: 1.3;
 }
 #pieces {
@@ -521,7 +542,7 @@ input:not([type="checkbox"]) {
   top: 80%;
   font-size: clamp(8px, 1vw, 11px);
   font-weight: 400;
-  color: #819d8a;
+  color: var(--accent);
   pointer-events: none;
 }
 .destination {
@@ -534,33 +555,33 @@ input:not([type="checkbox"]) {
     box-shadow 0.15s;
 }
 .legal .destination {
-  border-color: #f98a7e;
+  border-color: var(--text);
   background: radial-gradient(
     circle,
-    #ffac98 0 12%,
-    #e75d4830 18% 60%,
+    var(--text) 0 12%,
+    color-mix(in srgb, var(--text) 16%, transparent) 18% 60%,
     transparent 65%
   );
-  box-shadow: 0 0 20px #f6573526;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--text) 15%, transparent);
 }
 .legal:hover .destination {
-  background-color: #e5755944;
-  box-shadow: 0 0 20px #f6573555;
+  background-color: color-mix(in srgb, var(--text) 20%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--text) 30%, transparent);
 }
 .piece,
 .mini-piece {
   border-radius: 50%;
-  border: 1px solid #ffb3a577;
+  border: 1px solid color-mix(in srgb, var(--text) 65%, var(--red));
   background: radial-gradient(
     circle at 32% 20%,
-    #ffb6a3,
-    #f0524d 32%,
-    #842622 75%,
-    #411314
+    color-mix(in srgb, var(--red) 45%, var(--text)),
+    var(--red) 32%,
+    color-mix(in srgb, var(--red) 62%, var(--panel)) 75%,
+    color-mix(in srgb, var(--red) 30%, var(--panel))
   );
   box-shadow:
-    inset 0 2px 3px #ffd9cd66,
-    inset 0 -5px 5px #491b1a88,
+    inset 0 2px 3px color-mix(in srgb, var(--text) 40%, transparent),
+    inset 0 -5px 5px color-mix(in srgb, var(--panel) 50%, transparent),
     0 6px 10px #0008;
 }
 .piece {
@@ -578,34 +599,34 @@ input:not([type="checkbox"]) {
   content: "";
   position: absolute;
   inset: 17%;
-  border: 1px solid #f2e6cd3d;
+  border: 1px solid color-mix(in srgb, var(--text) 45%, transparent);
   border-radius: 50%;
   box-shadow: inset 0 2px 3px #0004;
 }
 .piece.gold,
 .gold .mini-piece {
-  border-color: #a6dfb780;
+  border-color: color-mix(in srgb, var(--text) 65%, var(--green));
   background: radial-gradient(
     circle at 32% 20%,
-    #a9dfb0,
-    #4aaf73 32%,
-    #205b43 75%,
-    #14362b
+    color-mix(in srgb, var(--green) 45%, var(--text)),
+    var(--green) 32%,
+    color-mix(in srgb, var(--green) 55%, var(--panel)) 75%,
+    var(--panel)
   );
   box-shadow:
-    inset 0 2px 3px #d5ffe066,
-    inset 0 -5px 5px #0a311888,
+    inset 0 2px 3px color-mix(in srgb, var(--text) 40%, transparent),
+    inset 0 -5px 5px color-mix(in srgb, var(--panel) 50%, transparent),
     0 6px 10px #0008;
 }
 .piece.selected {
-  outline: 2px solid white;
+  outline: 2px solid var(--text);
   outline-offset: 3px;
   filter: brightness(1.15);
 }
 .mini-piece {
   position: relative;
-  width: 27px;
-  height: 27px;
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
 }
 .context-dock {
@@ -615,11 +636,11 @@ input:not([type="checkbox"]) {
   min-height: 0;
   overflow-y: auto;
   padding: 24px;
-  border: 1px solid #ffffff24;
+  border: 1px solid var(--line);
   border-radius: 12px;
-  background: #171b19;
+  background: var(--panel);
 }
-.hud-label { font-size: 12px; letter-spacing: 1.5px; color: #d5c4bf; font-weight: 600; }
+.hud-label { font-size: 12px; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; }
 .turn-heading h2 { font-size: clamp(30px, 2.7vw, 40px); margin-top: 8px; line-height: 1.05; }
 .turn-row { display: grid; gap: 12px; }
 .player {
@@ -628,28 +649,28 @@ input:not([type="checkbox"]) {
   gap: 12px;
   min-width: 0;
   padding: 12px 0;
-  border-bottom: 1px solid #ffffff19;
+  border-bottom: 1px solid var(--line);
 }
 .player strong { font-size: 19px; }
-.player.active strong::after { content: " · To play"; font-size: 13px; color: #f7f3f0; }
+.player.active strong::after { content: " · To play"; font-size: 13px; color: var(--text); }
 .turn-tag { display: none; }
-.reserve { display: block; margin-top: 4px; font-size: 14px; color: #d3d9d2; line-height: 1.4; }
+.reserve { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); line-height: 1.4; }
 #phase { grid-row: auto; order: 3; justify-self: start; font-size: 12px; }
 .action-row { display: flex; flex-direction: column; gap: 20px; }
-.status p { font-size: 16px; line-height: 1.65; color: #e2e5df; }
+.status p { font-size: 16px; line-height: 1.65; color: var(--text); }
 .context-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .context-actions button { font-size: 15px; }
 .context-actions .primary { flex: 1; }
 .context-actions .quiet { padding: 10px 0; }
-.room-strip { font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px; color: #e2e5df; }
-.room-strip .quiet { color: #ffaaa1; text-align: left; padding: 6px 0; }
+.room-strip { font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px; color: var(--text); }
+.room-strip .quiet { color: var(--accent); text-align: left; padding: 6px 0; }
 .room-strip input { font-size: 13px !important; letter-spacing: 0; }
 .finished .player.active strong::after { content: none; }
 .win-line {
   stroke: var(--red);
   stroke-width: 5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 8px #eb554c88);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--text) 45%, transparent));
   stroke-dasharray: 600;
   animation: draw 1s ease-out;
 }
@@ -660,9 +681,9 @@ input:not([type="checkbox"]) {
   animation: celebrate 1.5s ease-in-out infinite alternate;
 }
 dialog {
-  color: #f7f3f0;
-  background: #182a1e;
-  border: 1px solid #65836d77;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 12px;
   padding: 28px;
   width: calc(100% - 28px);
@@ -672,7 +693,7 @@ dialog {
   box-shadow: 0 30px 100px #0009;
 }
 dialog::backdrop {
-  background: #030a07cc;
+  background: color-mix(in srgb, var(--panel) 80%, transparent);
   backdrop-filter: blur(7px);
 }
 .panel-heading {
@@ -692,7 +713,7 @@ dialog::backdrop {
 dialog p {
   font-size: 13px;
   line-height: 1.75;
-  color: #cad6c9;
+  color: var(--muted);
   margin: 15px 0;
 }
 dialog .full {
@@ -756,8 +777,8 @@ input[type="checkbox"] {
   .player { padding: 0; gap: 8px; border: 0; }
   .player strong { font-size: 15px; }
   .player.active strong::after { content: " •"; }
-  .reserve { font-size: 12px; margin-top: 2px; color: #f1e5e0; }
-  .mini-piece { width: 24px; height: 24px; }
+  .reserve { font-size: 12px; margin-top: 2px; color: var(--text); }
+  .mini-piece { width: 28px; height: 28px; }
   #phase { font-size: 10px; padding: 5px 8px; }
   .board-stage { grid-row: 3; width: 100%; height: min(calc(100vw - 24px), calc(100svh - 208px)); }
   .action-row { grid-row: 4; gap: 10px; }
@@ -883,7 +904,7 @@ input[type="checkbox"] {
   .player { padding: 4px 0; gap: 8px; }
   .player strong { font-size: 16px; }
   .reserve { font-size: 12px; }
-  .mini-piece { width: 23px; height: 23px; }
+  .mini-piece { width: 28px; height: 28px; }
   #phase { font-size: 10px; padding: 4px 8px; }
   .status p { font-size: 14px; line-height: 1.45; }
   .action-row { gap: 8px; }
