@@ -1,0 +1,13 @@
+# Architecture and provenance
+
+Inspected the existing local checkout of `64reth/solo-game-studio-kit`, commit `f0989e7` (Build 003), especially `packages/core/src/index.ts`, the tabletop player entry, legal actions, action/event recordings and replay. The reference repository was read only and remains unchanged.
+
+`src/engine/session.ts` reuses the reference core supplied by the repository owner for this project. It retains `GameDefinition`, `GameSession`, seeded random injection, snapshot isolation, immutable exported recordings, version compatibility checks and event-checked replay. No teaching game, lab, inspector or developer UI was imported. Potta-specific geometry, rules, appearance and tests are independently defined here. There was no license file in the inspected reference; this provenance note does not assign a new license to the reference code.
+
+The game definition takes a rules configuration and two fixed player IDs (`blue`, `gold`). `initialState`, `legalActions` and `transition` work without a DOM, network, clock or random source. The session validates the acting player and membership in legal actions before recording a transition. State snapshots and recordings are detached copies. Events describe placements, movements, turn changes, passes and results.
+
+Recordings contain game ID, engine version, configuration, roster, seed, actions and expected events. Replay re-runs actions through the same validation and rejects divergent events or incompatible versions. There is no replay or persistence UI in Build 001. Increment the game version when changing transition semantics; do not silently replay old actions under new rules.
+
+The renderer consumes state and legal actions, maintains only transient selection and piece identities for animation, and dispatches engine actions. Selection never changes game state. The SVG connection layer and HTML button targets use the same central coordinates. Piece elements persist through moves so transitions can animate between positions. Buttons have node/occupancy labels, pressed selection state, keyboard interaction and an announced turn/result region. Native modal dialogs handle instructions and destructive restart confirmation; reduced-motion preferences disable animation.
+
+Future AI can consume legal actions; future networking can validate the same actions authoritatively; recovery can replay a versioned recording. None of those services is included now. Runtime dependencies are zero; Vite, TypeScript, tsx and Playwright are development tools. Fonts and pieces require no external services or asset downloads.
