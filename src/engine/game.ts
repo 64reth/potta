@@ -132,7 +132,7 @@ export function transition(
       winner: p,
       line,
       reason:
-        geometryFor(s).target === 3 ? "Three in a line" : "Four in a line",
+        `${["", "", "", "Three", "Four", "Five"][geometryFor(s).target]} in a line`,
     };
     events.push({ type: "won", message: `${p} wins` });
     return { state: s, events };

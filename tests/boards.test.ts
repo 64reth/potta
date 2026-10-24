@@ -15,18 +15,18 @@ const cases = [
   {
     size: 4 as const,
     pieces: 4,
-    target: 3,
-    opening: ["A", "E", "B", "I", "G", "N", "M", "P"],
-    from: "G",
-    to: "C",
+    target: 4,
+    opening: ["A", "E", "B", "I", "C", "N", "H", "P"],
+    from: "H",
+    to: "D",
   },
   {
     size: 5 as const,
     pieces: 5,
-    target: 4,
-    opening: ["A", "F", "B", "K", "C", "P", "I", "V", "U", "Y"],
-    from: "I",
-    to: "D",
+    target: 5,
+    opening: ["A", "F", "B", "K", "C", "P", "D", "U", "J", "Y"],
+    from: "J",
+    to: "E",
   },
 ];
 for (const c of cases)
@@ -36,7 +36,7 @@ for (const c of cases)
     assert.equal(g.pieces, c.pieces);
     assert.equal(g.target, c.target);
     assert.equal(g.edges.length, c.size === 4 ? 30 : 48);
-    assert.equal(g.lines.length, c.size === 4 ? 20 : 24);
+    assert.equal(g.lines.length, 2 * c.size + 2);
     for (const line of g.lines) {
       assert.equal(line.length, c.target);
       for (let i = 1; i < line.length; i++)
@@ -74,7 +74,7 @@ for (const c of cases)
     );
     if (c.size === 5)
       assert.equal(
-        transition(session.state, { type: "move", from: "I", to: "H" }).state
+        transition(session.state, { type: "move", from: "J", to: "I" }).state
           .result.status,
         "playing",
       );
@@ -143,7 +143,7 @@ test("Traditional version-one recordings and placement behaviour are preserved",
   assert.equal(s.phase, "movement");
   assert.equal(
     transition(s, { type: "move", from: "G", to: "H" }).state.result.status,
-    "won",
+    "playing",
   );
   assert.throws(() =>
     commandRoom(null, "host", { type: "create", boardSize: 7 as 3 }, 0),

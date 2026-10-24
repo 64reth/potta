@@ -13,6 +13,12 @@ export interface BoardGeometry {
   lines: readonly (readonly Node[])[];
   centres: Node[];
 }
+// Modern variant targets can be tuned here without changing transitions or rendering.
+export const BOARD_RULES = {
+  3: { pieces: 3, target: 3 },
+  4: { pieces: 4, target: 4 },
+  5: { pieces: 5, target: 5 },
+} as const;
 const cache = new Map<BoardSize, BoardGeometry>();
 export function boardGeometry(size: BoardSize = 3): BoardGeometry {
   const hit = cache.get(size);
@@ -22,8 +28,8 @@ export function boardGeometry(size: BoardSize = 3): BoardGeometry {
     const board: BoardGeometry = {
       size,
       name: "Traditional",
-      pieces: 3,
-      target: 3,
+      pieces: BOARD_RULES[3].pieces,
+      target: BOARD_RULES[3].target,
       nodes: NODES,
       edges: EDGES,
       adjacency: ADJACENCY,
@@ -75,7 +81,7 @@ export function boardGeometry(size: BoardSize = 3): BoardGeometry {
   ) as BoardGeometry["adjacency"];
   const middle = size % 2 ? [Math.floor(size / 2)] : [size / 2 - 1, size / 2];
   const centres = middle.flatMap((r) => middle.map((c) => at(r, c)));
-  const target = size === 4 ? 3 : 4;
+  const { pieces, target } = BOARD_RULES[size];
   const segments = lines.flatMap((line) =>
     Array.from({ length: line.length - target + 1 }, (_, i) =>
       line.slice(i, i + target),
@@ -84,7 +90,7 @@ export function boardGeometry(size: BoardSize = 3): BoardGeometry {
   const board: BoardGeometry = {
     size,
     name: size === 4 ? "Four" : "Five",
-    pieces: size,
+    pieces,
     target,
     nodes,
     edges,

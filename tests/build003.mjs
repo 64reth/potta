@@ -34,16 +34,16 @@ const cases = [
   {
     size: 4,
     name: "Four",
-    opening: ["A", "E", "B", "I", "G", "N", "M", "P"],
-    from: "G",
-    to: "C",
+    opening: ["A", "E", "B", "I", "C", "N", "H", "P"],
+    from: "H",
+    to: "D",
   },
   {
     size: 5,
     name: "Five",
-    opening: ["A", "F", "B", "K", "C", "P", "I", "V", "U", "Y"],
-    from: "I",
-    to: "D",
+    opening: ["A", "F", "B", "K", "C", "P", "D", "U", "J", "Y"],
+    from: "J",
+    to: "E",
   },
 ];
 try {
@@ -187,11 +187,11 @@ try {
   }
   await wait(
     async () =>
-      (await page.locator('[data-node="I"]').getAttribute("aria-disabled")) ===
+      (await page.locator(`[data-node="${cases[2].from}"]`).getAttribute("aria-disabled")) ===
       "false",
   );
-  await click(page, "I");
-  await click(page, "D");
+  await click(page, cases[2].from);
+  await click(page, cases[2].to);
   await wait(async () =>
     /Red takes/i.test(await guest.locator("#status-title").innerText()),
   );

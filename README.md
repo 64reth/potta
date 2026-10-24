@@ -19,7 +19,7 @@ Open the printed local URL (normally **http://127.0.0.1:5173**). This one comman
 - **Resume Game:** return from the main menu. Online reloads restore automatically using the room URL and this browser's saved identity. An interruption never forfeits a seat.
 - **Rematch:** available after a result. Online rematches start when both players request one.
 
-Place your stones in alternating turns, then move one owned stone along a connected edge to an empty intersection. Traditional uses three stones and three in a row; experimental Four uses four stones and three consecutive; experimental Five uses five stones and four consecutive. Only the two full-board diagonals have diagonal edges. Placement wins and draw policies remain explicitly provisional; see [rules](docs/RULES.md).
+Place your stones in alternating turns, then move one owned stone along a connected edge to an empty intersection. Traditional uses three stones and three in a row; experimental Four uses four stones and four consecutive; experimental Five uses five stones and five consecutive. Only the two full-board diagonals have diagonal edges. Placement wins and draw policies remain explicitly provisional; see [rules](docs/RULES.md).
 
 ## Validate and preview
 

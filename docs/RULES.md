@@ -6,10 +6,10 @@
 | Board | Stones per player | Winning target |
 | --- | --- | --- |
 | Traditional 3×3 | 3 | 3 |
-| Four 4×4 | 4 | 3 consecutive |
-| Five 5×5 | 5 | 4 consecutive |
+| Four 4×4 | 4 | 4 consecutive |
+| Five 5×5 | 5 | 5 consecutive |
 
-Four and Five are experimental modern variants, not assertions of traditional rules. `src/engine/boards.ts` centralises each graph and consecutive winning segment. All boards connect adjacent horizontal/vertical nodes and consecutive nodes on the two full-board diagonals only. A crossing without an intersection is not playable (notably the centre of Four). A shorter winning segment may occur anywhere along a configured row, column or full-board diagonal; additional diagonal directions are absent.
+Four and Five are experimental modern variants, not assertions of traditional rules. `src/engine/boards.ts` centralises each graph and consecutive winning segment. All boards connect adjacent horizontal/vertical nodes and consecutive nodes on the two full-board diagonals only. A crossing without an intersection is not playable (notably the centre of Four). The winning targets currently match board size; `BOARD_RULES` keeps them independently configurable for later playtesting. Additional diagonal directions are absent.
 
 All boards share the provisional defaults below. Placement lasts twice the configured stone count. Traditional retains its original graph, winning lines and transition behaviour. Engine version 2 records board configuration; `restoreGame` also restores version 1 Traditional recordings through the compatibility definition. Existing rooms without a board size default to Traditional. Rematches retain room rules.
 
