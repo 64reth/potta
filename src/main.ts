@@ -5,20 +5,22 @@ import './ui/style.css';
 const players=[{id:'blue',name:'Azure'},{id:'gold',name:'Ochre'}];
 let session=create(), selected:Node|null=null;
 function create(){return new GameSession(potta,DEFAULT_RULES,players);}
+// Project the existing graph into a tighter viewport; engine coordinates stay unchanged.
+const boardPercent=(coordinate:number)=>(coordinate-50)/5;
 const name=(p:PlayerId)=>p==='blue'?'Azure':'Ochre';
 const app=document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML=`<main class="shell">
 <header><a class="wordmark" href="./" aria-label="Potta home">POTTA</a><div class="edition">HERITAGE GAMES <span>004</span></div><button id="rules" class="quiet">How to play <span>↗</span></button></header>
-<section class="game-heading"><div class="eyebrow">BARBADOS · TWO PLAYERS · ONE BOARD</div><h1>A little board.<br><em>A beautiful contest.</em></h1><p>Three pieces. Nine places. Your next move matters.</p></section>
+<section class="game-heading"><div class="eyebrow">BARBADOS · TWO PLAYERS · ONE BOARD</div><p>Three pieces. Nine places. Your next move matters.</p></section>
 <section class="table" aria-label="Potta game">
 <div class="table-top"><span id="phase"></span><span class="local"><i></i> LOCAL TWO PLAYER</span></div>
-<div class="arena"><svg class="board" viewBox="0 0 600 600" role="group" aria-label="Nine-position Potta board">
+<div class="arena"><svg class="board" viewBox="50 50 500 500" role="group" aria-label="Nine-position Potta board">
 <defs><filter id="glow"><feGaussianBlur stdDeviation="3"/></filter></defs>
 <g class="connections">${EDGES.map(([a,b])=>`<line x1="${COORDINATES[a][0]}" y1="${COORDINATES[a][1]}" x2="${COORDINATES[b][0]}" y2="${COORDINATES[b][1]}"/>`).join('')}</g>
 <g class="sockets">${NODES.map(n=>`<circle cx="${COORDINATES[n][0]}" cy="${COORDINATES[n][1]}" r="9"/>`).join('')}</g>
 <g id="winning"></g></svg>
-<div class="node-layer">${NODES.map(n=>`<button class="node" data-node="${n}" style="left:${COORDINATES[n][0]/6}%;top:${COORDINATES[n][1]/6}%"><span class="destination"></span><span class="node-letter">${n}</span></button>`).join('')}</div><div id="pieces" aria-hidden="true"></div>
-<span class="board-mark">P / 004</span></div>
+<div class="node-layer">${NODES.map(n=>`<button class="node" data-node="${n}" style="left:${boardPercent(COORDINATES[n][0])}%;top:${boardPercent(COORDINATES[n][1])}%"><span class="destination"></span><span class="node-letter">${n}</span></button>`).join('')}</div><div id="pieces" aria-hidden="true"></div>
+</div>
 <div class="players"><div id="blue-player" class="player blue"><span class="mini-piece"></span><div><strong>Azure</strong><span class="reserve" id="blue-reserve"></span></div><span class="turn-tag">YOUR TURN</span></div><div class="versus">×</div><div id="gold-player" class="player gold"><span class="mini-piece"></span><div><strong>Ochre</strong><span class="reserve" id="gold-reserve"></span></div><span class="turn-tag">YOUR TURN</span></div></div>
 </section>
 <section class="game-bottom"><div class="status" role="status" aria-live="polite" aria-atomic="true"><span id="status-dot"></span><div><h2 id="status-title"></h2><p id="instruction"></p></div></div><button id="restart" class="restart">New game <span>↻</span></button></section>
@@ -39,7 +41,7 @@ function render(action?:Action){
   for(const [node,id] of pieceIds[p]){
    let el=document.getElementById(`piece-${p}-${id}`);
    if(!el){el=document.createElement('span');el.id=`piece-${p}-${id}`;el.className=`piece ${p}`;$('pieces').append(el);}
-   el.style.left=`${COORDINATES[node][0]/6}%`;el.style.top=`${COORDINATES[node][1]/6}%`;
+   el.style.left=`${boardPercent(COORDINATES[node][0])}%`;el.style.top=`${boardPercent(COORDINATES[node][1])}%`;
    el.classList.toggle('selected',node===selected);el.classList.toggle('victorious',s.result.status==='won'&&s.result.line.includes(node));
   }
  }

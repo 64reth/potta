@@ -27,6 +27,7 @@ Browser verification requires a running dev server and a Playwright browser:
 ```sh
 npx playwright install chromium
 npm run test:browser
+npm run test:layout  # viewport sizing, alignment and input visibility
 ```
 
 Alternatively set `CHROMIUM_PATH` to a locally installed Chrome/Chromium executable. Browser checks save ignored screenshots under `artifacts/`.
@@ -42,3 +43,9 @@ Alternatively set `CHROMIUM_PATH` to a locally installed Chrome/Chromium executa
 See [board and rule decisions](docs/RULES.md), [architecture provenance](docs/ARCHITECTURE.md) and [verification](docs/VERIFICATION.md).
 
 Build 001 intentionally has no AI, tutorial flow, online service or saved-session UI. The engine and recordings preserve clean boundaries for those later additions. Nothing has been deployed.
+
+## Build 001A · board-first layout
+
+The playing surface now uses viewport height on desktop and 94% of screen width on phones, with compact turn information and controls below it. The SVG viewport is cropped to `50 50 500 500`; the renderer projects the unchanged graph into that viewport for both pieces and interaction targets. The game engine, rules and replay format are unchanged.
+
+Responsive verification covers 320×568, 375×667, 390×844, 768×1024, 1366×768, 1440×900 and 1920×1080. Set `BASE_URL` when reviewing a server on a different port (default: `http://127.0.0.1:5173`).
