@@ -48,4 +48,4 @@ These defaults are practical Build 001 choices, **not authenticated traditional 
 
 If neither player can move, the game draws regardless of blocked-turn policy. If a move both wins and reaches a draw threshold, the win takes precedence. Blocking takes precedence over repetition and the movement limit. Configurations disabling both draw thresholds allow an indefinite cycle; that is deliberate opt-in behavior.
 
-Red (internal player ID `blue`) starts each new game and rematch as an explicit interface convention. Colour names, piece styling, movement timing and these draw policies are presentation/implementation decisions rather than historical assertions.
+Charcoal (internal player ID `blue`) starts each new game and rematch as an explicit interface convention. Colour names, piece styling, movement timing and these draw policies are presentation/implementation decisions rather than historical assertions.

@@ -22,12 +22,12 @@ try {
   await fs.mkdir("artifacts", { recursive: true });
   await page.getByRole("button", { name: /Play Local/ }).click();
   await page.getByRole("button", { name: /Play Local/ }).click();
-  assert.match(await page.locator("#status-title").innerText(), /Red/i);
+  assert.match(await page.locator("#status-title").innerText(), /Charcoal/i);
   await click("A");
-  assert.match(await point("A").getAttribute("aria-label"), /Red piece/);
-  assert.match(await page.locator("#status-title").innerText(), /Green/i);
+  assert.match(await point("A").getAttribute("aria-label"), /Charcoal piece/);
+  assert.match(await page.locator("#status-title").innerText(), /Emerald/i);
   await click("A");
-  assert.match(await page.locator("#status-title").innerText(), /Green/i);
+  assert.match(await page.locator("#status-title").innerText(), /Emerald/i);
   for (const n of ["B", "D", "E", "I", "G"]) await click(n);
   assert.match(await page.locator("#phase").innerText(), /MOVE/);
   await click("A");
@@ -41,13 +41,13 @@ try {
   await click("F");
   assert.match(await point("I").getAttribute("aria-label"), /empty/);
   await page.screenshot({ path: "artifacts/desktop.png", fullPage: true });
-  // Fresh-board route: Red F–C completes A–B–C.
+  // Fresh-board route: Charcoal F–C completes A–B–C.
   await page
     .getByRole("button", { name: "Pause / settings", exact: true })
     .click();
   await page.getByRole("button", { name: "New game", exact: true }).click();
   await page.getByRole("button", { name: "Keep playing" }).click();
-  assert.match(await point("A").getAttribute("aria-label"), /Red/i);
+  assert.match(await point("A").getAttribute("aria-label"), /Charcoal/i);
   await page
     .getByRole("button", { name: "Pause / settings", exact: true })
     .click();
@@ -60,7 +60,7 @@ try {
   await click("C");
   assert.match(
     await page.locator("#status-title").innerText(),
-    /Red takes the line/i,
+    /Charcoal takes the line/i,
   );
   assert.equal(await page.locator(".win-line").count(), 1);
   assert.equal(await page.locator(".victorious").count(), 3);
@@ -69,7 +69,7 @@ try {
   await page.screenshot({ path: "artifacts/win.png", fullPage: true });
   await page.getByRole("button", { name: "Rematch" }).click();
   assert.equal(await page.locator(".piece").count(), 0);
-  assert.match(await page.locator("#status-title").innerText(), /Red/i);
+  assert.match(await page.locator("#status-title").innerText(), /Charcoal/i);
   await page.getByRole("button", { name: /Details/ }).click();
   await page.getByRole("button", { name: "How to play", exact: true }).click();
   assert.equal(

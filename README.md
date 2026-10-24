@@ -13,8 +13,8 @@ npm run dev
 
 Open the printed local URL (normally **http://127.0.0.1:5173**). This one command runs the frontend and local Cloudflare Workers/Durable Objects runtime. No Cloudflare login, account, remote binding or deployment is needed. Room storage persists in the ignored `.local/online/` directory.
 
-- **Play Solo:** choose Easy, Normal or Hard. Choose a board and difficulty. You are Red; Green is the computer.
-- **Play Local:** two people share the device. Choose a board; Red starts.
+- **Play Solo:** choose Easy, Normal or Hard. Choose a board and difficulty. You are Charcoal; Emerald is the computer.
+- **Play Local:** two people share the device. Choose a board; Charcoal starts.
 - **Play Online:** Create Game, then Share invitation or give a friend the six-character code. Join Game assigns the other seat. For local testing use two browser profiles or isolated browser contexts; two tabs in the same browser share a player identity.
 - **Resume Game:** return from the main menu. Online reloads restore automatically using the room URL and this browser's saved identity. An interruption never forfeits a seat.
 - **Rematch:** available after a result. Online rematches start when both players request one.

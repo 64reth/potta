@@ -81,7 +81,7 @@ try {
       "false",
     );
     await click(page, c.to);
-    assert.match(await page.locator("#status-title").innerText(), /Red takes/i);
+    assert.match(await page.locator("#status-title").innerText(), /Charcoal takes/i);
     await page.screenshot({
       path: `artifacts/003-win-${c.size}.png`,
       fullPage: true,
@@ -164,7 +164,7 @@ try {
   await guest.getByRole("button", { name: "Join Game", exact: true }).click();
   await wait(async () => (await guest.locator(".node").count()) === 25);
   await wait(async () =>
-    /You are Red/.test(await page.locator("#instruction").innerText()),
+    /You are Charcoal/.test(await page.locator("#instruction").innerText()),
   );
   for (let i = 0; i < cases[2].opening.length; i++) {
     const p = i % 2 ? guest : page,
@@ -193,7 +193,7 @@ try {
   await click(page, cases[2].from);
   await click(page, cases[2].to);
   await wait(async () =>
-    /Red takes/i.test(await guest.locator("#status-title").innerText()),
+    /Charcoal takes/i.test(await guest.locator("#status-title").innerText()),
   );
   await guest.screenshot({
     path: "artifacts/003-online-five.png",
@@ -201,7 +201,7 @@ try {
   });
   await guest.reload();
   await wait(async () =>
-    /Red takes/i.test(await guest.locator("#status-title").innerText()),
+    /Charcoal takes/i.test(await guest.locator("#status-title").innerText()),
   );
   assert.equal(await guest.locator(".node").count(), 25);
   await page.getByRole("button", { name: /Rematch/ }).click();

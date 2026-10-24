@@ -22,8 +22,8 @@ import "./ui/style.css";
 type Mode = "local" | "solo" | "online";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 const players = [
-  { id: "blue", name: "Red" },
-  { id: "gold", name: "Green" },
+  { id: "blue", name: "Charcoal" },
+  { id: "gold", name: "Emerald" },
 ];
 let selectedSize: BoardSize = 3;
 let paused = false,
@@ -180,7 +180,7 @@ function bindBoards(back: () => void) {
 function gameSetup(next: "solo" | "local") {
   setup(
     next === "solo" ? "Your next challenge." : "One board. Two players.",
-    `<p>${next === "solo" ? "You play Red. The computer plays Green." : "Red begins. Pass the device when the turn changes."}</p>${boardOptions()}${next === "solo" ? `<fieldset class="difficulties"><legend>Choose your challenge</legend>${(["easy", "normal", "hard"] as const).map((d) => `<button data-level="${d}" class="difficulty ${difficulty === d ? "chosen" : ""}" aria-pressed="${difficulty === d}"><strong>${d[0].toUpperCase() + d.slice(1)}</strong><span>${d === "easy" ? "Room to discover" : d === "normal" ? "A thoughtful opponent" : "A deeper contest"}</span></button>`).join("")}</fieldset>` : '<div class="local-seats"><span><i class="seat red"></i>Player one · Red</span><span><i class="seat green"></i>Player two · Green</span></div>'}<button id="start-${next}" class="primary full">Play ${next === "solo" ? "Solo" : "Local"} <span>→</span></button>`,
+    `<p>${next === "solo" ? "You play Charcoal. The computer plays Emerald." : "Charcoal begins. Pass the device when the turn changes."}</p>${boardOptions()}${next === "solo" ? `<fieldset class="difficulties"><legend>Choose your challenge</legend>${(["easy", "normal", "hard"] as const).map((d) => `<button data-level="${d}" class="difficulty ${difficulty === d ? "chosen" : ""}" aria-pressed="${difficulty === d}"><strong>${d[0].toUpperCase() + d.slice(1)}</strong><span>${d === "easy" ? "Room to discover" : d === "normal" ? "A thoughtful opponent" : "A deeper contest"}</span></button>`).join("")}</fieldset>` : '<div class="local-seats"><span><i class="seat charcoal"></i>Player one · Charcoal</span><span><i class="seat green"></i>Player two · Emerald</span></div>'}<button id="start-${next}" class="primary full">Play ${next === "solo" ? "Solo" : "Local"} <span>→</span></button>`,
   );
   bindBoards(() => gameSetup(next));
   document.querySelectorAll<HTMLButtonElement>("[data-level]").forEach(
@@ -246,8 +246,8 @@ function context(): BoardContext {
   if (mode === "solo") {
     canPlay = !paused && !thinking && s.turn === "blue";
     if (thinking) {
-      message = "Green is considering the next move…";
-      headline = "Green is thinking.";
+      message = "Emerald is considering the next move…";
+      headline = "Emerald is thinking.";
     }
   }
   if (mode === "online" && online) {
@@ -285,7 +285,7 @@ function context(): BoardContext {
                 ? s.result.reason + " · Ready for another round?"
                 : !v.opponentPresent
                   ? "Your opponent is reconnecting. Their seat is saved."
-                  : `You are ${v.player === "blue" ? "Red" : "Green"}. ${v.player === s.turn ? "Your turn." : "Your opponent’s turn."}`;
+                  : `You are ${v.player === "blue" ? "Charcoal" : "Emerald"}. ${v.player === s.turn ? "Your turn." : "Your opponent’s turn."}`;
   }
   return {
     canPlay,

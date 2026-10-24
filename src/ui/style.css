@@ -20,6 +20,10 @@
   font-family: "DM Sans", sans-serif;
   font-synthesis: none;
   color-scheme: dark;
+  --player-one: #25292B;
+  --player-two: #50D58B;
+  --graphite-highlight: #697174;
+  --graphite-rim: #9AA3A6;
   --display: "Barlow Condensed", Impact, sans-serif;
   /* OXBLOOD: welcome, mode selection and setup. */
   --background: #30191E;
@@ -399,11 +403,12 @@ legend {
   display: inline-block;
   margin-right: 6px;
 }
-.red {
-  background: var(--red);
+.charcoal {
+  background: var(--player-one);
+  border: 1px solid var(--graphite-rim);
 }
 .green {
-  background: var(--green);
+  background: var(--player-two);
 }
 .join-divider {
   margin: 30px 0 20px;
@@ -571,13 +576,16 @@ input:not([type="checkbox"]) {
 .piece,
 .mini-piece {
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--text) 65%, var(--red));
+  --counter-fill: var(--player-one);
+  --counter-highlight: var(--graphite-highlight);
+  --counter-rim: var(--graphite-rim);
+  border: 1px solid var(--counter-rim);
   background: radial-gradient(
     circle at 32% 20%,
-    color-mix(in srgb, var(--red) 45%, var(--text)),
-    var(--red) 32%,
-    color-mix(in srgb, var(--red) 62%, var(--panel)) 75%,
-    color-mix(in srgb, var(--red) 30%, var(--panel))
+    var(--counter-highlight),
+    var(--counter-fill) 38%,
+    color-mix(in srgb, var(--counter-fill) 75%, var(--panel)) 75%,
+    var(--counter-fill)
   );
   box-shadow:
     inset 0 2px 3px color-mix(in srgb, var(--text) 40%, transparent),
@@ -605,18 +613,25 @@ input:not([type="checkbox"]) {
 }
 .piece.gold,
 .gold .mini-piece {
-  border-color: color-mix(in srgb, var(--text) 65%, var(--green));
-  background: radial-gradient(
-    circle at 32% 20%,
-    color-mix(in srgb, var(--green) 45%, var(--text)),
-    var(--green) 32%,
-    color-mix(in srgb, var(--green) 55%, var(--panel)) 75%,
-    var(--panel)
-  );
-  box-shadow:
-    inset 0 2px 3px color-mix(in srgb, var(--text) 40%, transparent),
-    inset 0 -5px 5px color-mix(in srgb, var(--panel) 50%, transparent),
-    0 6px 10px #0008;
+  --counter-fill: var(--player-two);
+  --counter-highlight: color-mix(in srgb, var(--player-two) 45%, var(--text));
+  --counter-rim: color-mix(in srgb, var(--text) 65%, var(--player-two));
+}
+/* Numbered crests match the named HUD identities, independent of colour. */
+.piece::before, .mini-piece::before {
+  content: "1";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(10px, 1.1vw, 16px);
+  font-weight: 600;
+  color: var(--text);
+  z-index: 1;
+}
+.piece.gold::before, .gold .mini-piece::before {
+  content: "2";
+  color: var(--panel);
 }
 .piece.selected {
   outline: 2px solid var(--text);
@@ -667,7 +682,7 @@ input:not([type="checkbox"]) {
 .room-strip input { font-size: 13px !important; letter-spacing: 0; }
 .finished .player.active strong::after { content: none; }
 .win-line {
-  stroke: var(--red);
+  stroke: var(--graphite-rim);
   stroke-width: 5;
   stroke-linecap: round;
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--text) 45%, transparent));
@@ -675,7 +690,7 @@ input:not([type="checkbox"]) {
   animation: draw 1s ease-out;
 }
 .win-line.gold {
-  stroke: var(--green);
+  stroke: var(--player-two);
 }
 .victorious {
   animation: celebrate 1.5s ease-in-out infinite alternate;
