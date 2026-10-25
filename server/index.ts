@@ -1,4 +1,5 @@
 import { DurableObject } from "cloudflare:workers";
+import { productionHostname } from "./config";
 import type { InferEnv, UnwrapConfig } from "cf/config";
 import type configuration from "../cloudflare.config";
 import {
@@ -53,6 +54,10 @@ export class PottaRoom extends DurableObject<Env> {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    if (url.hostname === productionHostname && url.protocol === "http:") {
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 308);
+    }
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     if (url.pathname === "/api/health")
       return Response.json(

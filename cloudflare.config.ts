@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       entrypoint: "./server/index.ts",
       assets: {
         notFoundHandling: "single-page-application",
-        runWorkerFirst: ["/api/*"],
+        runWorkerFirst: mode === "production" ? true : ["/api/*"],
       },
       env: {
         ASSETS: bindings.assets(),
