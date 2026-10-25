@@ -9,3 +9,6 @@ artifacts/*.png
 .wrangler/
 
 .dev.vars*
+
+# Generated from the built Wrangler config (contains a build-specific commit literal).
+server/worker-configuration.d.ts

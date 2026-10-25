@@ -55,7 +55,10 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
     if (url.pathname === "/api/health")
-      return Response.json({ service: "potta", build: "002" });
+      return Response.json(
+        { service: "potta", build: "004", commit: env.GIT_COMMIT },
+        { headers: { "Cache-Control": "no-store" } },
+      );
     const code = url.pathname.match(/^\/api\/rooms\/([A-HJ-NP-Z2-9]{6})$/)?.[1];
     if (!code || !ROOM_PATTERN.test(code))
       return Response.json(

@@ -1,6 +1,6 @@
 # POTTA · Heritage Games 004
 
-A standalone digital adaptation of the Barbadian board game. Build 003 adds three configurable boards and a LUDI-inspired red, green and charcoal interface across Solo, Local and private Online play. Nothing has been deployed.
+A standalone digital adaptation of the Barbadian board game. Build 003 adds three configurable boards and a LUDI-inspired red, green and charcoal interface across Solo, Local and private Online play. Build 004 prepares the independent Cloudflare production deployment.
 
 ## Run locally
 
@@ -52,6 +52,21 @@ Use `BASE_URL` for a different port and `CHROMIUM_PATH` for an existing Chrome e
 - `server/`: authoritative room commands and one SQLite-backed Durable Object per room.
 - `cloudflare.config.ts`, `vite.config.ts`: typed Cloudflare configuration and local/build integration. Development and production have distinct Worker names; local resources never target remote bindings.
 
-Production output is `dist/client/` plus `dist/potta_online/`. Online requires the Worker and its Durable Object binding; uploading only the static client is insufficient. Deployment remains a separate, explicitly authorised step.
+Production output is `dist/client/` plus `dist/potta/`. Online requires the Worker and its Durable Object binding; uploading only the static client is insufficient. Production deployment uses the explicitly authorised Wrangler workflow below.
 
 See [online/recovery design](docs/ONLINE.md), [AI design](docs/AI.md), [architecture provenance](docs/ARCHITECTURE.md) and [verification](docs/VERIFICATION.md). See [Build 003 notes](docs/BUILD-003.md) for configuration and review details. There is no matchmaking, account system or tutorial.
+
+## Production · Build 004
+
+Target: **https://potta.allencreativetechnologies.uk** · Worker **potta**.
+
+```sh
+npm test
+npm run build
+npm run deploy:check   # validates dist/potta/wrangler.json without uploading
+npm run deploy         # rebuilds and deploys with the configured Cloudflare account
+```
+
+The Vite source configuration generates the production Wrangler config; do not edit `dist/` files. The existing typed Cloudflare config mirrors names/bindings. Wrangler is pinned locally. Development remains `potta-online-development`, with local bindings and no production domain. Production has its own SQLite `PottaRoom` namespace. `/api/health` identifies Build 004 and the Git commit embedded at build time. Rebuild from a clean intended commit before deploying.
+
+Private matches use same-origin **HTTPS polling**, not WebSockets. There is no WSS endpoint. See [production deployment notes](docs/BUILD-004.md) for architecture, cache behaviour and live-verification commands.

@@ -1,6 +1,6 @@
 {
   "name": "potta",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,7 +17,10 @@
     "research:potta": "node --import tsx tools/analysis/run.ts",
     "research:verify": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/verify.ts",
     "research:centre": "tsc -p tsconfig.research.json && node --import tsx tools/analysis/restricted-centre.ts",
-    "test:build003": "node tests/build003.mjs"
+    "test:build003": "node tests/build003.mjs",
+    "deploy:check": "wrangler deploy --dry-run --config dist/potta/wrangler.json",
+    "deploy": "npm run build && wrangler deploy --config dist/potta/wrangler.json",
+    "cf:types": "wrangler types --config dist/potta/wrangler.json --env-interface ProductionBindings --include-runtime false server/worker-configuration.d.ts"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.65.0",
@@ -27,7 +30,8 @@
     "cf": "^0.15.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0",
-    "vite": "^7.1.0"
+    "vite": "^7.1.0",
+    "wrangler": "4.152.0"
   },
   "engines": {
     "node": ">=22.18"

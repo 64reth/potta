@@ -1,6 +1,7 @@
+import { execFileSync } from "node:child_process";
 import { defineConfig } from "vite";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { compatibilityDate, roomClass, workerName } from "./server/config";
+import { compatibilityDate, roomClass, workerName, productionAccount, productionHostname } from "./server/config";
 export default defineConfig(({ mode }) => ({
   server: { host: "127.0.0.1" },
   plugins: [
@@ -10,6 +11,13 @@ export default defineConfig(({ mode }) => ({
       remoteBindings: false,
       config: {
         name: workerName(mode === "production"),
+        ...(mode === "production" ? {
+          account_id: productionAccount,
+          workers_dev: false,
+          preview_urls: false,
+          routes: [{ pattern: productionHostname, custom_domain: true }],
+        } : {}),
+        vars: { GIT_COMMIT: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim() },
         main: "./server/index.ts",
         compatibility_date: compatibilityDate,
         durable_objects: {

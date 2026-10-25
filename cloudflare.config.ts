@@ -1,10 +1,12 @@
 import { bindings, defineConfig, exports } from "cf/config";
-import { compatibilityDate, roomClass, workerName } from "./server/config";
+import { compatibilityDate, roomClass, workerName, productionAccount, productionHostname } from "./server/config";
 export default defineConfig(({ mode }) => {
   const name = workerName(mode === "production");
   return {
+    ...(mode === "production" ? { accountId: productionAccount } : {}),
     worker: {
       name,
+      ...(mode === "production" ? { domains: [productionHostname], workersDev: false, previewUrls: false } : {}),
       compatibilityDate,
       entrypoint: "./server/index.ts",
       assets: {
@@ -13,6 +15,7 @@ export default defineConfig(({ mode }) => {
       },
       env: {
         ASSETS: bindings.assets(),
+        GIT_COMMIT: bindings.text<string>("development"),
         ROOMS: bindings.durableObject({
           worker: name,
           exportName: "PottaRoom",
